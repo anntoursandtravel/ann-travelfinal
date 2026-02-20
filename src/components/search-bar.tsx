@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
@@ -9,7 +8,6 @@ import type { Place } from '@/lib/types'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { Loader } from '@/components/loaders'
-
 export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Place[]>([])
@@ -17,7 +15,6 @@ export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
-
   useEffect(() => {
     if (query.length > 1) {
       setLoading(true)
@@ -30,20 +27,17 @@ export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
         setResults(filteredResults)
         setLoading(false)
       }, 300)
-
       return () => clearTimeout(timer)
     } else {
       setResults([])
     }
   }, [query])
-
   const handleSelect = (placeId: string) => {
     setQuery('')
     setIsOpen(false)
     if(onResultClick) onResultClick();
     router.push(`/place/${placeId}`)
   }
-
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>

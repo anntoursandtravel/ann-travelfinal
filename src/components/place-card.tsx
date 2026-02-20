@@ -2,11 +2,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { Heart, Circle } from "lucide-react"
 import type { Place } from "@/lib/types"
-
 interface PlaceCardProps {
   place: Place;
 }
-
 export function PlaceCard({ place }: PlaceCardProps) {
   return (
     <Link href={`/place/${place.id}`} className="group block">
@@ -17,7 +15,6 @@ export function PlaceCard({ place }: PlaceCardProps) {
           width={400}
           height={300}
           className="w-full h-40 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
-          data-ai-hint={`${place.type} ${place.country}`}
         />
         <button
           onClick={(e) => { e.preventDefault(); alert('Added to favorites!'); }}

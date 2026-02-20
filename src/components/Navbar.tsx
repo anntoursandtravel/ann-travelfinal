@@ -1,6 +1,4 @@
-
 "use client"
-
 import Link from "next/link"
 import { Menu, Palmtree, Search, Home, Info, Mail, MapPin, Globe, BookCopy } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -18,16 +16,13 @@ import { SearchBar } from "./search-bar"
 import React from "react"
 import { cn } from "@/lib/utils"
 import { COUNTRIES } from "@/lib/types"
-
 const destinations = COUNTRIES.map(country => ({
   name: country,
   href: `/country/${country.toLowerCase()}`,
   description: `Explore attractions, hotels, and restaurants in ${country}.`
 }));
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -43,7 +38,6 @@ export default function Navbar() {
                   <Link href="/">Home</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
-
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Destinations</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -58,19 +52,16 @@ export default function Navbar() {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
-
                <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                   <Link href="/itineraries">Itineraries</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
-
                <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                   <Link href="/map">Map</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
-
               <NavigationMenuItem>
                  <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                   <Link href="/about">About Us</Link>
@@ -84,7 +75,6 @@ export default function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-
         <div className="flex items-center gap-4">
           <div className="hidden md:block">
             <SearchBar />
@@ -108,7 +98,6 @@ export default function Navbar() {
                   <Home className="h-5 w-5" />
                   <span>Home</span>
                 </Link>
-                
                 <h4 className="font-medium text-muted-foreground">Destinations</h4>
                 {destinations.map(({ href, name }) => (
                   <Link key={href} href={href} className="pl-4 text-muted-foreground hover:text-foreground flex items-center gap-2" onClick={() => setIsOpen(false)}>
@@ -116,17 +105,14 @@ export default function Navbar() {
                     <span>{name}</span>
                   </Link>
                 ))}
-
                 <Link href="/itineraries" className="font-medium flex items-center gap-2" onClick={() => setIsOpen(false)}>
                   <BookCopy className="h-5 w-5" />
                   <span>Itineraries</span>
                 </Link>
-
                 <Link href="/map" className="font-medium flex items-center gap-2" onClick={() => setIsOpen(false)}>
                   <MapPin className="h-5 w-5" />
                   <span>Map</span>
                 </Link>
-
                 <Link href="/about" className="font-medium flex items-center gap-2" onClick={() => setIsOpen(false)}>
                   <Info className="h-5 w-5" />
                   <span>About Us</span>
@@ -143,7 +129,6 @@ export default function Navbar() {
     </header>
   )
 }
-
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">

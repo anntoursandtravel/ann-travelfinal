@@ -1,6 +1,4 @@
-
 "use client"
-
 import type { Place } from "@/lib/types"
 import { PlaceCard } from "@/components/place-card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -11,13 +9,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { Clock, MapPin } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-
-
 interface CountryDetailsProps {
   country: Place['country']
   places: Place[]
 }
-
 function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
     return (
         <Card className="overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -29,7 +24,6 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         width={600}
                         height={800}
                         className="w-full h-full object-cover"
-                        data-ai-hint={`safari ${itinerary.countries.join(', ')}`}
                     />
                 </div>
                 <div className="md:col-span-8 flex flex-col">
@@ -64,20 +58,17 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
         </Card>
     )
 }
-
 export default function CountryDetails({ country, places }: CountryDetailsProps) {
   const attractions = useMemo(() => places.filter(p => p.type === 'Attraction'), [places])
   const hotels = useMemo(() => places.filter(p => p.type === 'Hotel'), [places])
   const restaurants = useMemo(() => places.filter(p => p.type === 'Restaurant'), [places])
   const countryItineraries = useMemo(() => itineraries.filter(i => i.countries.includes(country)), [country])
-
   const placeTypes = [
     { name: "Attractions", data: attractions, count: attractions.length, type: 'place' },
     { name: "Hotels", data: hotels, count: hotels.length, type: 'place' },
     { name: "Restaurants", data: restaurants, count: restaurants.length, type: 'place' },
     { name: "Itineraries", data: countryItineraries, count: countryItineraries.length, type: 'itinerary' },
   ].filter(pt => pt.count > 0);
-
   if (placeTypes.length === 0) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
@@ -86,7 +77,6 @@ export default function CountryDetails({ country, places }: CountryDetailsProps)
       </div>
     )
   }
-
   return (
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16">
@@ -96,14 +86,12 @@ export default function CountryDetails({ country, places }: CountryDetailsProps)
             Discover the best places to visit, stay, and eat in {country}.
           </p>
         </div>
-
         <Tabs defaultValue={placeTypes[0].name.toLowerCase()} className="w-full">
           <TabsList className="flex flex-wrap h-auto justify-center">
             {placeTypes.map(pt => (
               <TabsTrigger key={pt.name} value={pt.name.toLowerCase()}>{pt.name} ({pt.count})</TabsTrigger>
             ))}
           </TabsList>
-          
           {placeTypes.map(pt => (
             <TabsContent key={pt.name} value={pt.name.toLowerCase()}>
                {pt.type === 'place' && (

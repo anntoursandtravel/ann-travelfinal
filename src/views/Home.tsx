@@ -1,6 +1,4 @@
-
 "use client";
-
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
@@ -10,14 +8,12 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Award, Leaf, Map, Search, Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
-
 const WhereTo = dynamic(() => import('@/components/WhereTo'));
 const FeaturedItineraries = dynamic(() => import('@/components/FeaturedItineraries'), { 
     loading: () => <div className="py-16 lg:py-24 bg-secondary"><AttractionsListLoader count={3} /></div> 
 });
 const TravelersChoice = dynamic(() => import('@/components/TravelersChoice'));
 const Trending = dynamic(() => import('@/components/Trending'));
-
 const whyChooseUs = [
   {
     icon: <Map className="w-8 h-8 text-primary" />,
@@ -35,18 +31,15 @@ const whyChooseUs = [
     description: "We are committed to responsible travel that benefits local communities and conserves the environment."
   }
 ];
-
 export default function Home() {
   const [searchTerm, setSearchTerm] = React.useState('');
   const router = useRouter();
-
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       router.push(`/search?q=${searchTerm.trim()}`);
     }
   };
-  
   return (
     <div className="flex flex-col min-h-dvh">
       <section className="relative h-[100vh] md:h-[120vh] lg:h-[130vh] flex items-center justify-center text-center text-white py-8 md:py-16">
@@ -55,7 +48,6 @@ export default function Home() {
           alt="Safari animals collage"
           fill
           className="object-cover object-center z-0"
-          data-ai-hint="safari animals"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10" />
@@ -75,9 +67,7 @@ export default function Home() {
           </form>
         </div>
       </section>
-
       <WhereTo />
-      
       <section className="py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -97,7 +87,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
       <FeaturedItineraries />
       <TravelersChoice />
       <Trending />

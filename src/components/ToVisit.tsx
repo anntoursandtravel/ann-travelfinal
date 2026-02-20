@@ -1,27 +1,20 @@
 "use client"
-
 import { useContext } from "react";
 import { MainContext } from "@/context/MainContext";
 import { PlaceCard } from "@/components/place-card";
 import { AttractionsListLoader } from "./loaders";
-
 export default function ToVisit() {
   const context = useContext(MainContext);
-  
   if (!context) {
     return null;
   }
-
   const { attractions, isLoading } = context;
-
   if (isLoading) {
     return <AttractionsListLoader count={4} />;
   }
-
   if (!attractions.length) {
     return null;
   }
-
   return (
     <section className="w-full py-16 lg:py-24">
        <div className="container mx-auto px-4">

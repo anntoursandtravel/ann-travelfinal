@@ -6,21 +6,17 @@ import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { MainContextProvider } from '@/context/MainContext';
 import { Playfair_Display, Poppins } from 'next/font/google';
-
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-poppins',
 });
-
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-playfair-display',
 });
-
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://anntoursandtravel.com'),
   title: {
@@ -52,7 +48,6 @@ export const metadata: Metadata = {
     images: ['/twitter-image.jpg'],
   },
 };
-
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "TravelAgency",
@@ -78,8 +73,6 @@ const structuredData = {
     "query-input": "required name=search_term_string"
   }
 };
-
-
 export default function RootLayout({
   children,
 }: Readonly<{

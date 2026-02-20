@@ -1,5 +1,4 @@
 import { Skeleton } from "@/components/ui/skeleton"
-
 const PlaceListLoader = ({ count = 4 }: { count?: number }) => {
     return (
         <div className="container mx-auto px-4 py-8">
@@ -25,5 +24,4 @@ const PlaceListLoader = ({ count = 4 }: { count?: number }) => {
         </div>
     )
 }
-
 export default PlaceListLoader;

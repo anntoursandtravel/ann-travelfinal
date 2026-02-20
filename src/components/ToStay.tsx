@@ -1,6 +1,4 @@
-
 "use client"
-
 import { useContext } from "react";
 import { MainContext } from "@/context/MainContext";
 import { PlaceCard } from "@/components/place-card";
@@ -9,24 +7,18 @@ import { AttractionsListLoader } from "./loaders";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
 export default function ToStay() {
   const context = useContext(MainContext);
-
   if (!context) {
     return null;
   }
-  
   const { hotels, isLoading } = context;
-
   if (isLoading) {
     return <AttractionsListLoader count={4} />;
   }
-
   if (!hotels.length) {
     return null;
   }
-
   return (
     <section className="w-full py-16 lg:py-24 bg-secondary">
        <div className="container mx-auto px-4">

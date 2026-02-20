@@ -1,5 +1,4 @@
 import Image from "next/image"
-
 export default function AboutPage() {
   return (
     <div className="bg-background">
@@ -10,7 +9,6 @@ export default function AboutPage() {
             Your trusted partner in crafting unforgettable African journeys.
           </p>
         </div>
-
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="prose prose-lg max-w-none text-muted-foreground">
             <p>
@@ -29,7 +27,6 @@ export default function AboutPage() {
                 alt="Safari guides" 
                 fill
                 className="object-cover"
-                data-ai-hint="safari guides"
               />
           </div>
         </div>

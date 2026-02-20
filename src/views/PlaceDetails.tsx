@@ -1,5 +1,4 @@
 "use client"
-
 import Image from "next/image"
 import dynamic from "next/dynamic"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
@@ -7,24 +6,19 @@ import { Card } from "@/components/ui/card"
 import { Star, MapPin, Phone, Globe } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { Place } from "@/lib/types"
-
 const MapComponent = dynamic(() => import("@/components/map").then(mod => mod.MapComponent), {
     ssr: false,
     loading: () => <Skeleton className="w-full h-full" />
 })
-
 interface PlaceDetailsProps {
     place: Place
 }
-
 export default function PlaceDetails({ place }: PlaceDetailsProps) {
-
   const schemaTypeMap = {
     'Hotel': 'Hotel',
     'Restaurant': 'Restaurant',
     'Attraction': 'TouristAttraction',
   };
-
   const structuredData = {
     "@context": "https://schema.org",
     "@type": schemaTypeMap[place.type] || 'Thing',
@@ -51,7 +45,6 @@ export default function PlaceDetails({ place }: PlaceDetailsProps) {
     ...(place.contact.phone !== 'N/A' && { "telephone": place.contact.phone }),
     ...(place.contact.website.includes('http') && { "url": place.contact.website }),
   };
-
   return (
     <>
      <script
@@ -72,7 +65,6 @@ export default function PlaceDetails({ place }: PlaceDetailsProps) {
                 <span className="font-medium">{place.rating.toFixed(1)}</span>
               </div>
             </div>
-            
             <Carousel className="w-full mt-8 rounded-lg overflow-hidden shadow-lg">
               <CarouselContent>
                 {place.images.map((img, index) => (
@@ -83,7 +75,6 @@ export default function PlaceDetails({ place }: PlaceDetailsProps) {
                         width={1200}
                         height={800}
                         className="w-full h-[50vh] object-cover"
-                        data-ai-hint={`${place.country} ${place.type}`}
                       />
                   </CarouselItem>
                 ))}
@@ -91,13 +82,11 @@ export default function PlaceDetails({ place }: PlaceDetailsProps) {
               <CarouselPrevious className="left-4" />
               <CarouselNext className="right-4" />
             </Carousel>
-
             <div className="prose prose-lg max-w-none mt-8 text-muted-foreground">
               <h2 className="font-headline text-2xl font-semibold text-foreground">About {place.name}</h2>
               <p>{place.longDescription}</p>
             </div>
           </div>
-
           <div className="lg:col-span-1 space-y-8">
               <Card className="p-6">
                   <h3 className="font-headline text-xl font-semibold mb-4">Location</h3>

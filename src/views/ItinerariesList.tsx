@@ -1,12 +1,10 @@
 "use client"
-
 import Image from "next/image"
 import { itineraries } from "@/lib/itineraries"
 import type { Itinerary } from "@/lib/itineraries"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Clock, MapPin } from "lucide-react"
-
 export default function ItinerariesList() {
     return (
         <div className="bg-background">
@@ -17,7 +15,6 @@ export default function ItinerariesList() {
                         Explore our expertly crafted journeys, designed to give you an unforgettable African adventure.
                     </p>
                 </div>
-
                 <div className="space-y-12">
                     {itineraries.map((itinerary) => (
                         <ItineraryCard key={itinerary.id} itinerary={itinerary} />
@@ -27,7 +24,6 @@ export default function ItinerariesList() {
         </div>
     )
 }
-
 function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
     return (
         <Card className="overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -39,7 +35,6 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         width={600}
                         height={800}
                         className="w-full h-full object-cover"
-                        data-ai-hint={`safari ${itinerary.countries.join(', ')}`}
                     />
                 </div>
                 <div className="md:col-span-8 flex flex-col">

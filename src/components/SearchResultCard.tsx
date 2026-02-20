@@ -2,11 +2,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { Star, MessageSquare } from "lucide-react"
 import type { Place } from "@/lib/types"
-
 interface SearchResultCardProps {
   place: Place;
 }
-
 export default function SearchResultCard({ place }: SearchResultCardProps) {
   return (
     <Link href={`/place/${place.id}`} className="block group">
@@ -17,7 +15,6 @@ export default function SearchResultCard({ place }: SearchResultCardProps) {
             alt={place.name}
             fill
             className="object-cover rounded"
-            data-ai-hint={`${place.type} ${place.country}`}
           />
         </div>
         <div className="md:col-span-9 flex flex-col justify-between">
@@ -26,7 +23,6 @@ export default function SearchResultCard({ place }: SearchResultCardProps) {
               {place.name}
             </h3>
             <p className="text-sm text-muted-foreground">{place.country} - {place.type}</p>
-
             <div className="flex items-center text-sm text-muted-foreground mt-2">
               <div className="flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -36,7 +32,6 @@ export default function SearchResultCard({ place }: SearchResultCardProps) {
               <span className="ml-2">{place.rating.toFixed(1)} rating</span>
             </div>
           </div>
-
           <div className="w-full self-end text-sm text-muted-foreground mt-4 space-y-1">
             <div className="flex items-center">
               <MessageSquare className="w-4 h-4 mr-2 shrink-0" />
