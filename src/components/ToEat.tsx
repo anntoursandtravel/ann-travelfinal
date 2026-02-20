@@ -1,28 +1,21 @@
 "use client"
-
 import { useContext } from "react";
 import { MainContext } from "@/context/MainContext";
 import { PlaceCard } from "@/components/place-card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { AttractionsListLoader } from "./loaders";
-
 export default function ToEat() {
   const context = useContext(MainContext);
-
   if (!context) {
     return null; // Or some fallback UI
   }
-
   const { restaurants, isLoading } = context;
-
   if (isLoading) {
     return <AttractionsListLoader count={4} />;
   }
-
   if (!restaurants.length) {
     return null;
   }
-
   return (
     <section className="w-full py-16 lg:py-24">
       <div className="container mx-auto px-4">

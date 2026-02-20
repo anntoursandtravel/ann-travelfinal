@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Award } from "lucide-react";
 import { Button } from "./ui/button";
-
 export default function TravelersChoice() {
   return (
     <section className="bg-[#004f32]">
@@ -22,14 +21,12 @@ export default function TravelersChoice() {
             alt="Traveler's Choice background"
             fill
             className="object-cover hidden md:block"
-            data-ai-hint="travel award"
           />
           <Image
             src="https://placehold.co/600x400.png"
             alt="Traveler's Choice background"
             fill
             className="object-cover md:hidden"
-            data-ai-hint="travel award"
           />
         </div>
       </div>

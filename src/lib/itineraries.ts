@@ -1,6 +1,4 @@
-
 import type { Place } from './types';
-
 export interface Itinerary {
     id: string;
     title: string;
@@ -14,7 +12,6 @@ export interface Itinerary {
         description: string;
     }[];
 }
-
 export const itineraries: Itinerary[] = [
     {
         id: 'uganda-gorillas-savannah',

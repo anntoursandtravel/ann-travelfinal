@@ -1,5 +1,4 @@
 "use client"
-
 import { useEffect, useState } from "react";
 import { places } from "@/lib/data";
 import type { Place } from "@/lib/types";
@@ -13,20 +12,17 @@ import { format } from "date-fns";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 export default function HotelsList() {
     const [hotels, setHotels] = useState<Place[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [guestsToggle, setGuestsToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    
     const [filterParams, setFilterParams] = useState({ 
         rooms: 1, 
         adults: 1, 
         checkin: format(new Date(), "yyyy-MM-dd"),
         checkout: '',
     })
-
     useEffect(() => {
         const handleScroll = () => {
             window.scrollY > 100 ? setScrolled(true) : setScrolled(false)
@@ -34,19 +30,16 @@ export default function HotelsList() {
         document.addEventListener('scroll', handleScroll);
         return () => document.removeEventListener('scroll', handleScroll);
     }, []);
-
     useEffect(() => {
         setIsLoading(true);
         const allHotels = places.filter(place => place.type === 'Hotel');
         setHotels(allHotels);
         setIsLoading(false);
     }, [])
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFilterParams((prevState) => ({...prevState, [name]: value}))
     }
-
     return ( 
        <div className="bg-background">
             <div className="container mx-auto text-center my-10">
@@ -54,7 +47,6 @@ export default function HotelsList() {
                     Hotels and Places to Stay
                 </h1>
             </div>
-            
             <div className={`${scrolled ? 'border-b shadow-sm' : ''} mb-10 z-30 sticky top-16 bg-background`}>
                 <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-2 px-4 py-5">
                     <div className="relative">
@@ -69,7 +61,6 @@ export default function HotelsList() {
                             className="w-full border-l-4 border-l-primary" 
                         />
                     </div>
-                    
                     <div className="w-full relative">
                         <Label htmlFor="checkout" className="absolute text-xs bg-background font-semibold px-1 -top-2 left-3">Check Out</Label>
                         <Input 
@@ -82,7 +73,6 @@ export default function HotelsList() {
                             className="w-full border-l-4 border-l-destructive" 
                         />
                     </div>
-
                     <Popover open={guestsToggle} onOpenChange={setGuestsToggle}>
                         <PopoverTrigger asChild>
                             <div className="w-full relative">
@@ -124,13 +114,12 @@ export default function HotelsList() {
                     </Popover>
                 </div>
             </div>
-
             <div className="container mx-auto px-4 lg:grid lg:grid-cols-12 gap-8 pb-16">
                 <aside className="hidden lg:block lg:col-span-3">
                     <div className="sticky top-40">
                          <div className="w-full border shadow-sm rounded-lg p-2">
                             <div className="relative h-64">
-                                <Image src="https://placehold.co/400x400.png" data-ai-hint="world map" alt="Map" fill className="object-cover rounded-md" />
+                                <Image src="https://placehold.co/400x400.png" alt="Map" fill className="object-cover rounded-md" />
                                 <div className="absolute w-full h-full top-0 flex items-center justify-center bg-black/30 rounded-md">
                                     <Button asChild>
                                         <Link href="/map">
@@ -142,7 +131,6 @@ export default function HotelsList() {
                         </div>
                     </div>
                 </aside>
-
                 <main className="col-span-12 lg:col-span-9 mt-6 lg:mt-0">
                     { isLoading ? (
                         <AttractionsListLoader count={9} />

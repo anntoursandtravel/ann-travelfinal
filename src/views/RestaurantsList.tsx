@@ -1,22 +1,18 @@
 "use client"
-
 import { useEffect, useState } from "react";
 import { places } from "@/lib/data";
 import type { Place } from "@/lib/types";
 import { PlaceCard } from "@/components/place-card";
 import { AttractionsListLoader } from "@/components/loaders";
-
 export default function RestaurantsList() {
     const [restaurants, setRestaurants] = useState<Place[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-
     useEffect(() => {
         setIsLoading(true);
         const allRestaurants = places.filter(place => place.type === 'Restaurant');
         setRestaurants(allRestaurants);
         setIsLoading(false);
     }, [])
-
     return ( 
        <div className="bg-background">
             <div className="container mx-auto text-center my-10">
@@ -24,7 +20,6 @@ export default function RestaurantsList() {
                     Restaurants and Places to Eat
                 </h1>
             </div>
-            
             <main className="container mx-auto px-4 pb-16">
                 { isLoading ? (
                     <AttractionsListLoader count={3} />

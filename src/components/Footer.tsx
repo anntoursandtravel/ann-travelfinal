@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Palmtree } from "lucide-react"
-
 export default function Footer() {
   const legalLinks = [
     "Terms of Use",
@@ -9,7 +8,6 @@ export default function Footer() {
     "Site Map",
     "How the site works",
   ];
-
   return (
     <footer className="bg-secondary text-secondary-foreground">
       <div className="container mx-auto px-4 py-8">

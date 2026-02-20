@@ -1,5 +1,4 @@
 "use client"
-
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -16,7 +15,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { Mail, Phone, MapPin } from "lucide-react"
-
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -31,10 +29,8 @@ const formSchema = z.object({
     message: "Message must be at least 10 characters.",
   }),
 })
-
 export default function ContactPage() {
     const { toast } = useToast()
-  
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -44,7 +40,6 @@ export default function ContactPage() {
             message: "",
         },
     })
-
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values)
         toast({
@@ -53,7 +48,6 @@ export default function ContactPage() {
         })
         form.reset()
     }
-
   return (
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16 lg:py-24">
@@ -63,7 +57,6 @@ export default function ContactPage() {
             Have questions or ready to plan your adventure? We're here to help!
           </p>
         </div>
-
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-8">
             <div className="flex items-start gap-4">

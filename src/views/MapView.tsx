@@ -1,15 +1,12 @@
 "use client"
-
 import { useState } from "react";
 import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from "@vis.gl/react-google-maps";
 import { places } from "@/lib/data";
 import type { Place } from "@/lib/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
 export default function MapView() {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-
   if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
     return (
       <div className="container mx-auto py-10 text-center">
@@ -18,7 +15,6 @@ export default function MapView() {
       </div>
     );
   }
-
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <div className="w-full h-[calc(100vh-4rem)]">
@@ -38,7 +34,6 @@ export default function MapView() {
               <Pin />
             </AdvancedMarker>
           ))}
-
           {selectedPlace && (
             <InfoWindow
               position={selectedPlace.location}

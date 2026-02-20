@@ -1,16 +1,12 @@
 "use client"
-
 import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps"
 import { MapPin } from "lucide-react"
-
 interface MapComponentProps {
   lat: number;
   lng: number;
 }
-
 export function MapComponent({ lat, lng }: MapComponentProps) {
   const position = { lat, lng };
-
   if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
     return (
       <div className="w-full h-full bg-muted flex items-center justify-center rounded-lg">
@@ -18,7 +14,6 @@ export function MapComponent({ lat, lng }: MapComponentProps) {
       </div>
     );
   }
-
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <Map

@@ -1,5 +1,4 @@
 import { Skeleton } from "@/components/ui/skeleton";
-
 const SearchResultLoader = () => {
     return ( 
         <div className="container mx-auto space-y-3 p-4">
@@ -9,5 +8,4 @@ const SearchResultLoader = () => {
         </div>
      );
 }
- 
 export default SearchResultLoader;

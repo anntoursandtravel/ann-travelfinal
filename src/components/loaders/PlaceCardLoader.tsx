@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-
 const PlaceCardLoader = () => {
     return (
         <Card>
@@ -12,5 +11,4 @@ const PlaceCardLoader = () => {
         </Card>
     )
 }
- 
 export default PlaceCardLoader;

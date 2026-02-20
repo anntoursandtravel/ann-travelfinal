@@ -16,9 +16,7 @@ export interface Place {
   };
   rating: number;
 }
-
 export const COUNTRIES: Array<Place['country']> = ['Uganda', 'Kenya', 'Tanzania', 'Zanzibar', 'Rwanda'];
-
 export const COUNTRY_ISO_MAP: Record<Place['country'], string> = {
   'Uganda': 'UG',
   'Kenya': 'KE',

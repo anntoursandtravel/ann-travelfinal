@@ -1,6 +1,4 @@
-
 "use client"
-
 import Link from "next/link";
 import Image from "next/image";
 import { itineraries } from "@/lib/itineraries";
@@ -8,10 +6,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, MapPin } from "lucide-react";
-
 export default function FeaturedItineraries() {
   const featured = itineraries.slice(0, 4);
-
   return (
     <section className="w-full py-16 lg:py-24 bg-secondary">
        <div className="container mx-auto px-4">
@@ -44,7 +40,6 @@ export default function FeaturedItineraries() {
                             alt={itinerary.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            data-ai-hint={`safari ${itinerary.countries.join(', ')}`}
                         />
                     </div>
                     <CardHeader>

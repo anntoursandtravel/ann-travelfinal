@@ -4,11 +4,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Star } from "lucide-react"
 import type { Place } from "@/lib/types"
-
 interface PlaceListItemProps {
   place: Place;
 }
-
 export function PlaceListItem({ place }: PlaceListItemProps) {
   return (
     <Card className="grid grid-cols-1 md:grid-cols-12 overflow-hidden transition-all duration-300 hover:shadow-xl w-full">
@@ -19,7 +17,6 @@ export function PlaceListItem({ place }: PlaceListItemProps) {
             width={400}
             height={300}
             className="w-full h-60 md:h-full object-cover"
-            data-ai-hint={`${place.type} ${place.country}`}
           />
       </div>
       <div className="md:col-span-8 flex flex-col">

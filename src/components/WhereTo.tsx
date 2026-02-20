@@ -3,12 +3,12 @@ import Image from 'next/image';
 import { COUNTRIES } from '@/lib/types';
 import { Card } from '@/components/ui/card';
 
-const destinationImages: Record<string, {img: string, hint: string}> = {
-  Uganda: { img: 'https://images.unsplash.com/photo-1594555249959-8c072a2772e6?q=80&w=2070&auto=format&fit=crop', hint: 'Uganda safari' },
-  Kenya: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/4e/5d/93/kenya.jpg?w=900&h=500&s=1', hint: 'Kenya safari' },
-  Tanzania: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/01/a1/50/14/tanzania-safari.jpg?w=900&h=500&s=1', hint: 'Tanzania kilimanjaro' },
-  Zanzibar: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/ff/64/zanzibar-island.jpg?w=900&h=500&s=1', hint: 'Zanzibar beach' },
-  Rwanda: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/97/00/5f/rwanda.jpg?w=900&h=500&s=1', hint: 'Rwanda hills' },
+const destinationImages: Record<string, {img: string}> = {
+  Uganda: { img: 'https://images.unsplash.com/photo-1594555249959-8c072a2772e6?q=80&w=2070&auto=format&fit=crop' },
+  Kenya: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/4e/5d/93/kenya.jpg?w=900&h=500&s=1' },
+  Tanzania: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/01/a1/50/14/tanzania-safari.jpg?w=900&h=500&s=1' },
+  Zanzibar: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/ff/64/zanzibar-island.jpg?w=900&h=500&s=1' },
+  Rwanda: { img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/97/00/5f/rwanda.jpg?w=900&h=500&s=1' },
 };
 
 export default function WhereTo() {
@@ -28,7 +28,6 @@ export default function WhereTo() {
                   alt={`Explore ${country}`}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  data-ai-hint={destinationImages[country].hint}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-2 w-full">

@@ -1,6 +1,4 @@
-
 import type { Place } from './types';
-
 export const places: Place[] = [
   // Uganda
   {
@@ -3228,10 +3226,3 @@ export const places: Place[] = [
     rating: 4.7
   }
 ];
-
-    
-
-    
-
-
-
