@@ -44,14 +44,14 @@ export default function FeaturedItineraries() {
                             alt={itinerary.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            data-ai-hint={`safari ${itinerary.country}`}
+                            data-ai-hint={`safari ${itinerary.countries.join(', ')}`}
                         />
                     </div>
                     <CardHeader>
                         <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">{itinerary.title}</CardTitle>
                         <CardDescription className="flex items-center gap-4 pt-1">
                             <span className="flex items-center gap-1.5 text-xs">
-                                <MapPin className="w-3 h-3" /> {itinerary.country}
+                                <MapPin className="w-3 h-3" /> {itinerary.countries.join(', ')}
                             </span>
                             <span className="flex items-center gap-1.5 text-xs">
                                 <Clock className="w-3 h-3" /> {itinerary.duration}

@@ -14,7 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 
 interface CountryDetailsProps {
-  country: string
+  country: Place['country']
   places: Place[]
 }
 
@@ -29,7 +29,7 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         width={600}
                         height={800}
                         className="w-full h-full object-cover"
-                        data-ai-hint={`safari ${itinerary.country}`}
+                        data-ai-hint={`safari ${itinerary.countries.join(', ')}`}
                     />
                 </div>
                 <div className="md:col-span-8 flex flex-col">
@@ -37,7 +37,7 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         <CardTitle className="font-headline text-2xl md:text-3xl">{itinerary.title}</CardTitle>
                         <CardDescription className="flex items-center gap-4 pt-2">
                              <span className="flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4 text-primary" /> {itinerary.country}
+                                <MapPin className="w-4 h-4 text-primary" /> {itinerary.countries.join(', ')}
                             </span>
                             <span className="flex items-center gap-1.5">
                                 <Clock className="w-4 h-4 text-primary" /> {itinerary.duration}
@@ -68,11 +68,13 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
 export default function CountryDetails({ country, places }: CountryDetailsProps) {
   const attractions = useMemo(() => places.filter(p => p.type === 'Attraction'), [places])
   const hotels = useMemo(() => places.filter(p => p.type === 'Hotel'), [places])
-  const countryItineraries = useMemo(() => itineraries.filter(i => i.country === country), [country])
+  const restaurants = useMemo(() => places.filter(p => p.type === 'Restaurant'), [places])
+  const countryItineraries = useMemo(() => itineraries.filter(i => i.countries.includes(country)), [country])
 
   const placeTypes = [
     { name: "Attractions", data: attractions, count: attractions.length, type: 'place' },
     { name: "Hotels", data: hotels, count: hotels.length, type: 'place' },
+    { name: "Restaurants", data: restaurants, count: restaurants.length, type: 'place' },
     { name: "Itineraries", data: countryItineraries, count: countryItineraries.length, type: 'itinerary' },
   ].filter(pt => pt.count > 0);
 

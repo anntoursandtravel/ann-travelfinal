@@ -1,14 +1,16 @@
 import { places } from "@/lib/data"
+import { COUNTRY_ISO_MAP } from "@/lib/types"
 import { notFound } from "next/navigation"
 import PlaceDetails from "@/views/PlaceDetails"
 import type { Metadata } from "next";
 
 type Props = {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const place = places.find(p => p.id === params.id)
+  const awaitedParams = await params;
+  const place = places.find(p => p.id === awaitedParams.id)
 
   if (!place) {
     return {
@@ -29,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${place.name} | Ann Tours and Travel`,
       description: `Explore ${place.name}, a premier ${place.type.toLowerCase()} in ${place.country}.`,
-      url: `/place/${place.id}`,
+      url: `/place/${awaitedParams.id}`,
       images: [
         {
           url: place.images[0],
@@ -56,12 +58,46 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function PlaceDetailsPage({ params }: { params: { id:string } }) {
-  const place = places.find(p => p.id === params.id)
+export default async function PlaceDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const awaitedParams = await params;
+  const place = places.find(p => p.id === awaitedParams.id)
 
   if (!place) {
     notFound()
   }
 
-  return <PlaceDetails place={place} />
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': place.type === 'Hotel' ? 'Hotel' : place.type === 'Restaurant' ? 'Restaurant' : 'TouristAttraction',
+    name: place.name,
+    description: place.description,
+    image: place.images[0],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: COUNTRY_ISO_MAP[place.country]
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: place.location.lat,
+      longitude: place.location.lng
+    },
+    telephone: place.contact.phone,
+    url: place.contact.website,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: place.rating,
+      bestRating: '5',
+      worstRating: '1'
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PlaceDetails place={place} />
+    </>
+  );
 }
