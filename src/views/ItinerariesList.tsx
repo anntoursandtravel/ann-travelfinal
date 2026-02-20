@@ -39,7 +39,7 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         width={600}
                         height={800}
                         className="w-full h-full object-cover"
-                        data-ai-hint={`safari ${itinerary.country}`}
+                        data-ai-hint={`safari ${itinerary.countries.join(', ')}`}
                     />
                 </div>
                 <div className="md:col-span-8 flex flex-col">
@@ -47,7 +47,7 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         <CardTitle className="font-headline text-2xl md:text-3xl">{itinerary.title}</CardTitle>
                         <CardDescription className="flex items-center gap-4 pt-2">
                              <span className="flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4 text-primary" /> {itinerary.country}
+                                <MapPin className="w-4 h-4 text-primary" /> {itinerary.countries.join(', ')}
                             </span>
                             <span className="flex items-center gap-1.5">
                                 <Clock className="w-4 h-4 text-primary" /> {itinerary.duration}

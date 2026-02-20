@@ -1,11 +1,11 @@
 import { places } from "@/lib/data"
-import { COUNTRIES } from "@/lib/types"
+import { COUNTRIES, COUNTRY_ISO_MAP, Place } from "@/lib/types"
 import { notFound } from "next/navigation"
 import CountryDetails from "@/views/CountryDetails"
 import type { Metadata } from "next";
 
 type Props = {
-  params: { name: string }
+  params: Promise<{ name: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -31,14 +31,35 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function CountryPage({ params }: { params: { name: string } }) {
-  const countryName = COUNTRIES.find(c => c.toLowerCase() === params.name);
+export default async function CountryPage({ params }: { params: Promise<{ name: string }> }) {
+  const awaitedParams = await params;
+  const countryName = COUNTRIES.find(c => c.toLowerCase() === awaitedParams.name);
 
   if (!countryName) {
     notFound()
   }
 
-  const countryPlaces = places.filter(p => p.country.toLowerCase() === params.name)
+  const countryPlaces = places.filter(p => p.country.toLowerCase() === awaitedParams.name)
 
-  return <CountryDetails country={countryName} places={countryPlaces} />
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: `Explore ${countryName}`,
+    description: `Discover the best attractions, hotels, and restaurants in ${countryName}.`,
+    url: `https://anntours.com/country/${awaitedParams.name}`,
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: COUNTRY_ISO_MAP[countryName as Place['country']]
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <CountryDetails country={countryName} places={countryPlaces} />
+    </>
+  );
 }

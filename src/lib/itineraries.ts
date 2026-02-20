@@ -4,7 +4,7 @@ import type { Place } from './types';
 export interface Itinerary {
     id: string;
     title: string;
-    country: Place['country'];
+    countries: Place['country'][];
     duration: string;
     description: string;
     image: string;
@@ -19,7 +19,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'uganda-gorillas-savannah',
         title: 'Uganda: Gorillas and Savannah Adventure',
-        country: 'Uganda',
+        countries: ['Uganda'],
         duration: '10 Days / 9 Nights',
         image: 'https://images.unsplash.com/photo-1594555249959-8c072a2772e6?q=80&w=2070&auto=format&fit=crop',
         description: 'Experience the best of Uganda, from tracking majestic mountain gorillas in Bwindi Impenetrable Forest to thrilling game drives across the savannahs of Murchison Falls and Queen Elizabeth National Park.',
@@ -39,7 +39,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'kenya-classic-safari',
         title: 'Classic Kenya Safari',
-        country: 'Kenya',
+        countries: ['Kenya'],
         duration: '8 Days / 7 Nights',
         image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/4e/5d/93/kenya.jpg?w=900&h=500&s=1',
         description: 'A classic safari through Kenya\'s most famous parks. Witness the iconic landscapes of Amboseli with views of Kilimanjaro, the unique wildlife of Samburu, and the legendary plains of the Maasai Mara.',
@@ -57,7 +57,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'tanzania-northern-circuit',
         title: 'Tanzania Northern Circuit Expedition',
-        country: 'Tanzania',
+        countries: ['Tanzania'],
         duration: '9 Days / 8 Nights',
         image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/01/a1/50/14/tanzania-safari.jpg?w=900&h=500&s=1',
         description: 'Discover the icons of northern Tanzania. This itinerary takes you through the elephant-filled Tarangire, the vast plains of the Serengeti, and the unique ecosystem of the Ngorongoro Crater.',
@@ -76,7 +76,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'zanzibar-spice-island-getaway',
         title: 'Zanzibar Spice Island Getaway',
-        country: 'Zanzibar',
+        countries: ['Zanzibar'],
         duration: '7 Days / 6 Nights',
         image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/ff/64/zanzibar-island.jpg?w=900&h=500&s=1',
         description: 'Relax and unwind on the idyllic beaches of Zanzibar. Explore the historic alleyways of Stone Town, visit a fragrant spice farm, and snorkel in the crystal-clear waters of the Indian Ocean.',
@@ -93,7 +93,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'rwanda-land-of-a-thousand-hills',
         title: 'Rwanda: Land of a Thousand Hills',
-        country: 'Rwanda',
+        countries: ['Rwanda'],
         duration: '8 Days / 7 Nights',
         image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/97/00/5f/rwanda.jpg?w=900&h=500&s=1',
         description: 'Discover the beauty and resilience of Rwanda. This journey takes you from the vibrant capital of Kigali to the misty rainforests of Nyungwe and the gorilla-inhabited volcanoes of the north.',
@@ -111,7 +111,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'kenya-big-five-safari',
         title: 'Kenya: The Big Five Safari',
-        country: 'Kenya',
+        countries: ['Kenya'],
         duration: '7 Days / 6 Nights',
         image: 'https://images.unsplash.com/photo-1557053503-391ce1245029?q=80&w=2070&auto=format&fit=crop',
         description: 'A focused adventure to spot the legendary "Big Five" (Lion, Leopard, Elephant, Rhino, and Buffalo) in some of Kenya\'s most prestigious wildlife reserves, including the Maasai Mara and Lake Nakuru.',
@@ -128,7 +128,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'uganda-primates-wildlife',
         title: 'Uganda: Primates and Wildlife',
-        country: 'Uganda',
+        countries: ['Uganda'],
         duration: '12 Days / 11 Nights',
         image: 'https://images.unsplash.com/photo-1648510398515-c4a7bda2d544?q=80&w=2070&auto=format&fit=crop',
         description: 'An in-depth journey focusing on Uganda\'s incredible primate diversity, including gorilla and chimp tracking, complemented by classic savannah safaris to see lions, elephants, and more.',
@@ -150,7 +150,7 @@ export const itineraries: Itinerary[] = [
     {
         id: 'kenya-tanzania-migration-spectacular',
         title: 'Kenya & Tanzania: The Migration Spectacular',
-        country: 'Kenya',
+        countries: ['Kenya', 'Tanzania'],
         duration: '14 Days / 13 Nights',
         image: 'https://images.unsplash.com/photo-1534577482862-4f87453de298?q=80&w=1974&auto=format&fit=crop',
         description: 'The ultimate East African safari, combining the best of Kenya and Tanzania. Follow the Great Migration from the Maasai Mara to the Serengeti and explore the magnificent Ngorongoro Crater.',
