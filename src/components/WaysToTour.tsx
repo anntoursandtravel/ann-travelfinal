@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -10,7 +12,7 @@ const categories = [
   {
     title: 'Things to Do',
     href: '/attractions',
-    image: 'https://images.unsplash.com/photo-1533929736472-594e69d3d9ce?q=80&w=2070&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80https://images.unsplash.com/photo-1533929736472-594e69d3d9ce?q=80&w=2070&auto=format&fit=cropw=2068https://images.unsplash.com/photo-1533929736472-594e69d3d9ce?q=80&w=2070&auto=format&fit=cropauto=formathttps://images.unsplash.com/photo-1533929736472-594e69d3d9ce?q=80&w=2070&auto=format&fit=cropfit=crop'
   },
   {
     title: 'Restaurants',
@@ -27,21 +29,21 @@ const categories = [
 export default function WaysToTour() {
   return (
     <section className="container mx-auto px-4 py-12">
-      <h2 className="font-headline text-2xl md:text-3xl font-bold mb-2">Ways to tour East Africa</h2>
-      <p className="text-muted-foreground mb-8">Book these experiences for a close-up look at the region.</p>
+      <h2 className="text-2xl font-bold mb-2 text-black font-sans">Ways to tour East Africa</h2>
+      <p className="text-gray-600 mb-8 font-sans">Book these experiences for a close-up look at the region.</p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {categories.map((cat) => (
           <Link key={cat.title} href={cat.href} className="group text-center">
-            <div className="relative aspect-square w-full rounded-2xl overflow-hidden mb-3 border-2 border-transparent group-hover:border-primary transition-all shadow-sm group-hover:shadow-md">
+            <div className="relative aspect-square w-full rounded-lg overflow-hidden mb-3">
                <Image
                  src={cat.image}
                  alt={cat.title}
                  fill
-                 className="object-cover transition-transform duration-500 group-hover:scale-105"
+                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                />
             </div>
-            <span className="font-bold text-lg group-hover:underline decoration-2 underline-offset-4 decoration-primary">{cat.title}</span>
+            <span className="font-bold text-lg text-black group-hover:underline font-sans">{cat.title}</span>
           </Link>
         ))}
       </div>
