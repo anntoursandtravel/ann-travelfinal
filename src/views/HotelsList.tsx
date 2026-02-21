@@ -1,9 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
-import { places } from "@/lib/data";
 import type { Place } from "@/lib/types";
 import { PlaceCard } from "@/components/place-card";
-import { AttractionsListLoader } from "@/components/loaders";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,9 +10,7 @@ import { format } from "date-fns";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-export default function HotelsList() {
-    const [hotels, setHotels] = useState<Place[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+export default function HotelsList({ hotels }: { hotels: Place[] }) {
     const [guestsToggle, setGuestsToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [filterParams, setFilterParams] = useState({ 
@@ -30,12 +26,6 @@ export default function HotelsList() {
         document.addEventListener('scroll', handleScroll);
         return () => document.removeEventListener('scroll', handleScroll);
     }, []);
-    useEffect(() => {
-        setIsLoading(true);
-        const allHotels = places.filter(place => place.type === 'Hotel');
-        setHotels(allHotels);
-        setIsLoading(false);
-    }, [])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFilterParams((prevState) => ({...prevState, [name]: value}))
@@ -132,15 +122,11 @@ export default function HotelsList() {
                     </div>
                 </aside>
                 <main className="col-span-12 lg:col-span-9 mt-6 lg:mt-0">
-                    { isLoading ? (
-                        <AttractionsListLoader count={9} />
-                    ) : (
-                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                            {hotels.map((hotel, i) => (
-                                <PlaceCard key={i} place={hotel} />
-                            ))}
-                        </div>
-                    ) }
+                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                        {hotels.map((hotel, i) => (
+                            <PlaceCard key={i} place={hotel} />
+                        ))}
+                    </div>
                 </main>
             </div>
        </div>

@@ -1,4 +1,7 @@
 import HotelsList from "@/views/HotelsList";
+import { places } from "@/lib/data";
+
 export default function HotelsPage() {
-    return <HotelsList />;
+    const hotels = places.filter(place => place.type === 'Hotel');
+    return <HotelsList hotels={hotels} />;
 }
