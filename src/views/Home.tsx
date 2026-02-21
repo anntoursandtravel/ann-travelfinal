@@ -35,7 +35,7 @@ export default function Home() {
   const router = useRouter();
   return (
     <div className="flex flex-col min-h-dvh">
-      <section className="relative h-[120vh] md:h-[150vh] lg:h-[160vh] flex items-end justify-center text-center text-white pb-24 md:pb-32">
+      <section className="relative h-[120vh] md:h-[150vh] lg:h-[160vh] flex items-end justify-center text-center text-white pb-24 md:pb-32 -mt-20 md:-mt-24">
         <Image
           src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=2000"
           alt="Majestic Safari Landscape"
