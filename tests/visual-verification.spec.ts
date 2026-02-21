@@ -14,8 +14,8 @@ test('verify homepage visual design', async ({ page }) => {
   await page.screenshot({ path: 'home_hero.png', fullPage: false });
   console.log('Hero screenshot taken: home_hero.png');
 
-  // Scroll to "Why Ann Tours & Travel?" section
-  const whyUs = page.locator('h2:has-text("Why Ann Tours & Travel?")');
+  // Scroll to "Why Nile Crown Safaris?" section
+  const whyUs = page.locator('h2:has-text("Why Nile Crown Safaris?")');
   await whyUs.scrollIntoViewIfNeeded();
   // Wait a bit for animations if any
   await page.waitForTimeout(500);

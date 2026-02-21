@@ -20,16 +20,16 @@ const playfairDisplay = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL('https://anntoursandtravel.com'),
   title: {
-    default: 'Ann Tours and Travel - Unforgettable African Journeys',
-    template: '%s | Ann Tours and Travel',
+    default: 'Nile Crown Safaris - Unforgettable African Journeys',
+    template: '%s | Nile Crown Safaris',
   },
   description: 'Your ultimate guide to African safaris and adventures in Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Discover destinations, attractions, hotels, and plan your dream trip.',
   keywords: ['African safari', 'tours', 'travel', 'Uganda', 'Kenya', 'Tanzania', 'Zanzibar', 'Rwanda', 'gorilla trekking', 'wildlife', 'safari packages'],
   openGraph: {
-    title: 'Ann Tours and Travel - Unforgettable African Journeys',
+    title: 'Nile Crown Safaris - Unforgettable African Journeys',
     description: 'Your ultimate guide to African safaris and adventures in Uganda, Kenya, Tanzania, Zanzibar, and Rwanda.',
     url: 'https://anntoursandtravel.com',
-    siteName: 'Ann Tours and Travel',
+    siteName: 'Nile Crown Safaris',
     images: [
       {
         url: '/og-image.jpg',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ann Tours and Travel - Unforgettable African Journeys',
+    title: 'Nile Crown Safaris - Unforgettable African Journeys',
     description: 'Your ultimate guide to African safaris and adventures in Uganda, Kenya, Tanzania, Zanzibar, and Rwanda.',
     images: ['/twitter-image.jpg'],
   },
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "TravelAgency",
-  "name": "Ann Tours and Travel",
+  "name": "Nile Crown Safaris",
   "description": "Your ultimate guide to African safaris and adventures in Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Discover destinations, attractions, hotels, and plan your dream trip.",
   "url": "https://anntoursandtravel.com",
   "logo": "https://anntoursandtravel.com/logo.png",

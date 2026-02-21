@@ -1,6 +1,6 @@
-# Ann Tours and Travel
+# Nile Crown Safaris
 
-This is a web application for Ann Tours and Travel, a company specializing in crafting unforgettable African journeys.
+This is a web application for Nile Crown Safaris, a company specializing in crafting unforgettable African journeys.
 
 ## About the Project
 

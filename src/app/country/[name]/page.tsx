@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   return {
     title: `Explore ${countryName}`,
-    description: `Discover the best attractions, hotels, and restaurants in ${countryName}. Plan your perfect trip with Ann Tours and Travel.`,
+    description: `Discover the best attractions, hotels, and restaurants in ${countryName}. Plan your perfect trip with Nile Crown Safaris.`,
     keywords: [`${countryName} travel`, `things to do in ${countryName}`, `hotels in ${countryName}`, `restaurants in ${countryName}`, 'safari', 'tourism'],
   }
 }

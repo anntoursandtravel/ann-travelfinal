@@ -72,7 +72,7 @@ export default function Navbar() {
               "font-bold text-xl font-headline whitespace-nowrap tracking-tight transition-colors",
               isScrolled ? "text-foreground" : "text-white"
             )}>
-              Ann Tours & Travel
+              Nile Crown Safaris
             </span>
           </Link>
           <NavigationMenu className="hidden md:flex">
@@ -187,7 +187,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-2">
                    <Palmtree className="h-6 w-6 text-primary" />
                    <SheetTitle className="font-bold text-xl font-headline tracking-tight text-left">
-                    Ann Tours
+                    Nile Crown Safaris
                   </SheetTitle>
                 </div>
               </SheetHeader>

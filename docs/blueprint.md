@@ -2,7 +2,7 @@
 
 ## Core Features:
 
-- Homepage Showcase: Display a homepage introducing Ann tours and travel with featured destinations and tour packages.
+- Homepage Showcase: Display a homepage introducing Nile Crown Safaris with featured destinations and tour packages.
 - Destination Listings: Implement dedicated pages for Uganda, Kenya, Tanzania, Zanzibar, and Rwanda, showcasing relevant attractions, hotels, and restaurants.
 - Listing Information: Display name, image, and brief description for each listed place.
 - Place Details Page: A dedicated page showing rich information like detailed descriptions, multiple images, map location, and contact details, is accessible when you select any listing.

@@ -1,0 +1,12 @@
+
+> nextn@0.1.0 start
+> next start
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 804ms
+Missing Supabase environment variables. Features depending on Supabase will be disabled.
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1533929736472-594e69d3d9ce?q=80&w=2070&auto=format&fit=crop 404

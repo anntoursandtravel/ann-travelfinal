@@ -14,16 +14,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: 'Place Not Found'
     }
   }
-  const keywords = [place.name, place.type, place.country, 'Ann Tours and Travel', 'African safari'];
+  const keywords = [place.name, place.type, place.country, 'Nile Crown Safaris', 'African safari'];
   if (place.type === 'Hotel') keywords.push('accommodation', 'booking');
   if (place.type === 'Restaurant') keywords.push('dining', 'food');
   if (place.type === 'Attraction') keywords.push('tourism', 'sightseeing');
   return {
     title: `${place.name} | ${place.country}`,
-    description: `Explore ${place.name}, a premier ${place.type.toLowerCase()} in ${place.country}. Get details, see photos, and plan your visit with Ann Tours and Travel. ${place.description}`,
+    description: `Explore ${place.name}, a premier ${place.type.toLowerCase()} in ${place.country}. Get details, see photos, and plan your visit with Nile Crown Safaris. ${place.description}`,
     keywords: keywords,
     openGraph: {
-      title: `${place.name} | Ann Tours and Travel`,
+      title: `${place.name} | Nile Crown Safaris`,
       description: `Explore ${place.name}, a premier ${place.type.toLowerCase()} in ${place.country}.`,
       url: `/place/${awaitedParams.id}`,
       images: [
@@ -35,11 +35,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
       ],
       type: 'article',
-      siteName: 'Ann Tours and Travel',
+      siteName: 'Nile Crown Safaris',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${place.name} | Ann Tours and Travel`,
+      title: `${place.name} | Nile Crown Safaris`,
       description: `Explore ${place.name}, a premier ${place.type.toLowerCase()} in ${place.country}.`,
       images: [place.images[0]],
     }
