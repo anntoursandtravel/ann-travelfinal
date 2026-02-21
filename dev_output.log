@@ -1,0 +1,18 @@
+
+> nextn@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.5.12 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 1450ms
+ ○ Compiling /_not-found/page ...
+ ✓ Compiled /_not-found/page in 7.4s
+ GET /robots.txt 404 in 8778ms
+ ○ Compiling /itineraries/[id] ...
+ ✓ Compiled /itineraries/[id] in 1088ms
+Missing Supabase environment variables. Features depending on Supabase will be disabled.
+Missing Supabase environment variables. Features depending on Supabase will be disabled.
+ GET /itineraries/uganda-gorillas-savannah 200 in 2634ms
