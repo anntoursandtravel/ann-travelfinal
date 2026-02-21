@@ -80,17 +80,21 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(
                   navigationMenuTriggerStyle(),
-                  !isScrolled && "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
+                  !isScrolled
+                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                    : "hover:text-primary"
                 )}>
                   <Link href="/">Home</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className={cn(
-                  !isScrolled && "bg-transparent hover:bg-white/10 text-white data-[state=open]:bg-white/10"
+                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
+                  !isScrolled && "bg-transparent hover:bg-white/10 text-white data-[state=open]:bg-white/10 hover:text-white"
                 )}>Destinations</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[600px] grid-cols-2 gap-3 p-4">
+                  <ul className="grid w-[650px] grid-cols-2 gap-4 p-6">
                      {destinations.map((destination) => (
                         <ListItem
                           key={destination.name}
@@ -107,7 +111,10 @@ export default function Navbar() {
                <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(
                   navigationMenuTriggerStyle(),
-                  !isScrolled && "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
+                  !isScrolled
+                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                    : "hover:text-primary"
                 )}>
                   <Link href="/itineraries">Itineraries</Link>
                 </NavigationMenuLink>
@@ -115,7 +122,10 @@ export default function Navbar() {
                <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(
                   navigationMenuTriggerStyle(),
-                  !isScrolled && "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
+                  !isScrolled
+                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                    : "hover:text-primary"
                 )}>
                   <Link href="/map">Map</Link>
                 </NavigationMenuLink>
@@ -123,7 +133,10 @@ export default function Navbar() {
               <NavigationMenuItem>
                  <NavigationMenuLink asChild className={cn(
                   navigationMenuTriggerStyle(),
-                  !isScrolled && "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
+                  !isScrolled
+                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                    : "hover:text-primary"
                 )}>
                   <Link href="/about">About Us</Link>
                 </NavigationMenuLink>
@@ -131,7 +144,10 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(
                   navigationMenuTriggerStyle(),
-                  !isScrolled && "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
+                  !isScrolled
+                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                    : "hover:text-primary"
                 )}>
                   <Link href="/contact">Contact</Link>
                 </NavigationMenuLink>
@@ -144,15 +160,15 @@ export default function Navbar() {
             <SearchBar />
           </div>
           <Button asChild variant="ghost" className={cn(
-            "hidden xl:flex items-center gap-2 font-medium transition-colors",
-            isScrolled ? "text-muted-foreground" : "text-white/80 hover:text-white hover:bg-white/10"
+            "hidden xl:flex items-center gap-2 font-bold transition-colors rounded-full",
+            isScrolled ? "text-muted-foreground hover:text-primary hover:bg-primary/5" : "text-white hover:text-white hover:bg-white/10"
           )}>
             <Link href="https://wa.me/1234567890" target="_blank">
               <MessageCircle className="h-4 w-4" />
               Expert Help
             </Link>
           </Button>
-          <Button asChild className="hidden md:flex bg-primary hover:bg-primary/90 font-bold px-6 shadow-md transition-all hover:shadow-lg">
+          <Button asChild className="hidden md:flex bg-primary hover:bg-primary/90 font-bold px-8 rounded-full shadow-md transition-all hover:shadow-lg hover:scale-105 active:scale-95">
             <Link href="/contact">Consult an Expert</Link>
           </Button>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -162,64 +178,90 @@ export default function Navbar() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-               <SheetHeader>
-                 <SheetTitle className="sr-only">Menu</SheetTitle>
+            <SheetContent
+              side="right"
+              className="w-full sm:w-[400px] p-0 flex flex-col gap-0 border-l-0"
+              onOpenAutoFocus={(e) => e.preventDefault()}
+            >
+              <SheetHeader className="p-6 border-b border-border/50 text-left">
+                <div className="flex items-center gap-2">
+                   <Palmtree className="h-6 w-6 text-primary" />
+                   <SheetTitle className="font-bold text-xl font-headline tracking-tight text-left">
+                    Ann Tours
+                  </SheetTitle>
+                </div>
               </SheetHeader>
-              <div className="p-4">
+
+              <div className="p-6 pb-2">
                 <SearchBar onResultClick={() => setIsOpen(false)}/>
               </div>
-              <nav className="flex flex-col gap-4 p-4">
-                <Link href="/" className="font-medium flex items-center gap-3 py-2 border-b border-border/50" onClick={() => setIsOpen(false)}>
-                  <Home className="h-5 w-5 text-primary" />
-                  <span>Home</span>
-                </Link>
 
-                <div>
-                  <h4 className="font-bold text-sm uppercase tracking-widest text-muted-foreground mb-3 px-1">Destinations</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    {destinations.map(({ href, name }) => (
-                      <Link key={href} href={href} className="group flex items-center gap-3 p-2 rounded-lg hover:bg-secondary transition-colors" onClick={() => setIsOpen(false)}>
-                        <div className="h-8 w-8 rounded-full overflow-hidden relative">
-                          <Image src={destinationImages[name]} alt={name} fill className="object-cover" />
-                        </div>
-                        <span className="font-medium">{name}</span>
-                      </Link>
-                    ))}
+              <div className="flex-1 overflow-y-auto travel_toggle">
+                <nav className="flex flex-col gap-1 p-4">
+                  <Link href="/" className="group font-bold text-lg flex items-center gap-4 p-3 rounded-xl hover:bg-secondary transition-all" onClick={() => setIsOpen(false)}>
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Home className="h-5 w-5 text-primary" />
+                    </div>
+                    <span>Home</span>
+                  </Link>
+
+                  <div className="mt-4">
+                    <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 px-3">Destinations</h4>
+                    <div className="grid grid-cols-1 gap-1">
+                      {destinations.map(({ href, name }) => (
+                        <Link key={href} href={href} className="group flex items-center gap-4 p-3 rounded-xl hover:bg-secondary transition-all" onClick={() => setIsOpen(false)}>
+                          <div className="h-10 w-10 rounded-full overflow-hidden relative border border-primary/10 shadow-sm">
+                            <Image src={destinationImages[name]} alt={name} fill className="object-cover" />
+                          </div>
+                          <span className="font-bold">{name}</span>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
-                  <Link href="/itineraries" className="font-medium flex items-center gap-3 py-1" onClick={() => setIsOpen(false)}>
-                    <BookCopy className="h-5 w-5 text-primary" />
-                    <span>Itineraries</span>
-                  </Link>
-                  <Link href="/map" className="font-medium flex items-center gap-3 py-1" onClick={() => setIsOpen(false)}>
-                    <MapPin className="h-5 w-5 text-primary" />
-                    <span>Map</span>
-                  </Link>
-                  <Link href="/about" className="font-medium flex items-center gap-3 py-1" onClick={() => setIsOpen(false)}>
-                    <Info className="h-5 w-5 text-primary" />
-                    <span>About Us</span>
-                  </Link>
-                  <Link href="/contact" className="font-medium flex items-center gap-3 py-1" onClick={() => setIsOpen(false)}>
-                    <Mail className="h-5 w-5 text-primary" />
-                    <span>Contact</span>
-                  </Link>
-                </div>
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                     <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 px-3">Explore</h4>
+                    <Link href="/itineraries" className="group font-bold text-lg flex items-center gap-4 p-3 rounded-xl hover:bg-secondary transition-all" onClick={() => setIsOpen(false)}>
+                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <BookCopy className="h-5 w-5 text-primary" />
+                      </div>
+                      <span>Itineraries</span>
+                    </Link>
+                    <Link href="/map" className="group font-bold text-lg flex items-center gap-4 p-3 rounded-xl hover:bg-secondary transition-all" onClick={() => setIsOpen(false)}>
+                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <MapPin className="h-5 w-5 text-primary" />
+                      </div>
+                      <span>Live Map</span>
+                    </Link>
+                    <Link href="/about" className="group font-bold text-lg flex items-center gap-4 p-3 rounded-xl hover:bg-secondary transition-all" onClick={() => setIsOpen(false)}>
+                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Info className="h-5 w-5 text-primary" />
+                      </div>
+                      <span>About Our Story</span>
+                    </Link>
+                    <Link href="/contact" className="group font-bold text-lg flex items-center gap-4 p-3 rounded-xl hover:bg-secondary transition-all" onClick={() => setIsOpen(false)}>
+                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Mail className="h-5 w-5 text-primary" />
+                      </div>
+                      <span>Contact Us</span>
+                    </Link>
+                  </div>
+                </nav>
+              </div>
 
-                <div className="mt-6 space-y-4">
-                  <Button asChild className="w-full bg-primary font-bold py-6">
+              <div className="p-6 border-t border-border/50 bg-secondary/20">
+                <div className="space-y-3">
+                  <Button asChild className="w-full bg-primary font-bold py-7 rounded-full shadow-lg hover:shadow-primary/20 transition-all text-base">
                     <Link href="/contact" onClick={() => setIsOpen(false)}>Consult an Expert</Link>
                   </Button>
-                  <Button asChild variant="outline" className="w-full py-6">
-                    <Link href="https://wa.me/1234567890" target="_blank" className="flex items-center justify-center gap-2">
-                      <MessageCircle className="h-5 w-5" />
-                      WhatsApp Us
+                  <Button asChild variant="outline" className="w-full py-7 rounded-full border-2 hover:bg-white transition-all text-base font-bold">
+                    <Link href="https://wa.me/1234567890" target="_blank" className="flex items-center justify-center gap-3">
+                      <MessageCircle className="h-5 w-5 text-primary" />
+                      WhatsApp Expert
                     </Link>
                   </Button>
                 </div>
-              </nav>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
@@ -237,24 +279,24 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "group flex gap-4 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "group flex gap-5 select-none rounded-xl p-3 leading-none no-underline outline-none transition-all hover:bg-secondary/50 focus:bg-secondary/50",
             className
           )}
           {...props}
         >
           {image && (
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md">
+            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-primary/10 shadow-sm">
               <Image
                 src={image}
                 alt={title || ""}
                 fill
-                className="object-cover transition-transform group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
             </div>
           )}
-          <div>
-            <div className="text-sm font-bold leading-none mb-1">{title}</div>
-            <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+          <div className="flex flex-col justify-center">
+            <div className="text-base font-bold leading-none mb-1.5 group-hover:text-primary transition-colors">{title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground group-hover:text-muted-foreground/80 transition-colors">
               {children}
             </p>
           </div>
