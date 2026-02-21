@@ -33,7 +33,7 @@ export default function ItineraryDetails({ itinerary }: ItineraryDetailsProps) {
             />
 
             {/* Hero Section */}
-            <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+            <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden -mt-20 md:-mt-24">
                 <Image
                     src={itinerary.image}
                     alt={itinerary.title}
