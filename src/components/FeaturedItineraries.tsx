@@ -58,7 +58,7 @@ export default function FeaturedItineraries() {
                     </CardContent>
                     <div className="p-6 pt-0">
                         <Button variant="link" asChild className="p-0 h-auto">
-                            <Link href="/itineraries">
+                            <Link href={`/itineraries/${itinerary.id}`}>
                                 View Details <ArrowRight className="ml-2 h-4 w-4" />
                             </Link>
                         </Button>

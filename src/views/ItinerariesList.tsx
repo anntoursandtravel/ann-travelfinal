@@ -4,7 +4,9 @@ import { itineraries } from "@/lib/itineraries"
 import type { Itinerary } from "@/lib/itineraries"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Clock, MapPin } from "lucide-react"
+import { Clock, MapPin, ArrowRight } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 export default function ItinerariesList() {
     return (
         <div className="bg-background">
@@ -50,19 +52,17 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                        <p className="text-muted-foreground mb-4">{itinerary.description}</p>
-                        <Accordion type="single" collapsible className="w-full">
-                            {itinerary.dailyBreakdown.map((day) => (
-                                <AccordionItem key={day.day} value={`day-${day.day}`}>
-                                    <AccordionTrigger className="text-left">
-                                        <span className="font-semibold">Day {day.day}:</span> {day.title}
-                                    </AccordionTrigger>
-                                    <AccordionContent>
-                                        {day.description}
-                                    </AccordionContent>
-                                </AccordionItem>
-                            ))}
-                        </Accordion>
+                        <p className="text-muted-foreground mb-6">{itinerary.description}</p>
+                        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5">
+                                <Link href={`/itineraries/${itinerary.id}`}>
+                                    View Full Details <ArrowRight className="ml-2 h-4 w-4" />
+                                </Link>
+                            </Button>
+                            <span className="text-sm font-medium text-primary bg-primary/5 px-4 py-2 rounded-full">
+                                Customization Available
+                            </span>
+                        </div>
                     </CardContent>
                 </div>
             </div>

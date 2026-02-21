@@ -6,7 +6,7 @@ export default function Review() {
         <CardTitle>Reviews</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>This is a placeholder for the "Review" component.</p>
+        <p>This is a placeholder for the &quot;Review&quot; component.</p>
       </CardContent>
     </Card>
   );

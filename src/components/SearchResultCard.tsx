@@ -38,7 +38,7 @@ export default function SearchResultCard({ place }: SearchResultCardProps) {
               <p className="font-semibold text-foreground">Review Snippet</p>
             </div>
             <p className="line-clamp-2 italic">
-              "...{place.description}..."
+              &quot;...{place.description}...&quot;
             </p>
           </div>
         </div>
