@@ -41,8 +41,8 @@ export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <div className="relative w-full md:w-64 lg:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <div className="relative w-full md:w-64 lg:w-80 group">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
           <Input
             ref={inputRef}
             value={query}
@@ -51,11 +51,11 @@ export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
                 if (!isOpen) setIsOpen(true);
             }}
             placeholder="Search destinations..."
-            className="pl-9"
+            className="pl-10 rounded-full bg-secondary/30 border-border/50 focus:bg-background focus:border-primary/30 transition-all duration-300 h-11 text-base md:text-sm shadow-sm hover:bg-secondary/50"
           />
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+      <PopoverContent className="w-[--radix-popover-trigger-width] p-0 rounded-xl overflow-hidden shadow-2xl border-primary/5 mt-1" align="start">
         <Command>
           <CommandList>
             {loading && <div className="p-4 flex items-center justify-center"><Loader className="h-5 w-5" /></div>}
