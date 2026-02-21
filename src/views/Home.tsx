@@ -52,6 +52,14 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10" />
         <div className="relative z-20 container mx-auto px-4 flex flex-col items-center space-y-12 md:space-y-16">
+          <div className="max-w-4xl space-y-6 text-center">
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tight drop-shadow-2xl">
+              Unforgettable <span className="text-primary underline decoration-white/30">African</span> Adventures
+            </h1>
+            <p className="text-xl md:text-2xl font-medium text-white/90 drop-shadow-lg max-w-2xl mx-auto">
+              Discover the wild heart of East Africa with Ann Tours and Travel. Bespoke safaris, hidden gems, and memories that last a lifetime.
+            </p>
+          </div>
           <form onSubmit={handleSearch} className="w-full max-w-3xl bg-white/95 backdrop-blur-sm rounded-full p-4 shadow-2xl flex items-center gap-4 animate-zoom-in">
             <Search className="h-6 w-6 text-muted-foreground ml-4" />
             <Input
