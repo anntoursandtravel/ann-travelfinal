@@ -1,12 +1,19 @@
 import { createClient } from './supabase/public'
 import { Place } from './types'
-import { Itinerary } from './itineraries'
+import { Itinerary, itineraries as staticItineraries } from './itineraries'
+import { places as staticPlaces } from './data'
+
+const isSupabaseConfigured = !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 export async function getPlaces(): Promise<Place[]> {
+  if (!isSupabaseConfigured) {
+    return staticPlaces
+  }
+
   const supabase = createClient()
   const { data, error } = await supabase.from('places').select('*')
 
-  if (error || !data) return []
+  if (error || !data) return staticPlaces
 
   return data.map(p => ({
     id: p.id,
@@ -24,10 +31,14 @@ export async function getPlaces(): Promise<Place[]> {
 }
 
 export async function getItineraries(): Promise<Itinerary[]> {
+  if (!isSupabaseConfigured) {
+    return staticItineraries
+  }
+
   const supabase = createClient()
   const { data, error } = await supabase.from('itineraries').select('*')
 
-  if (error || !data) return []
+  if (error || !data) return staticItineraries
 
   return data.map(i => ({
     id: i.id,
@@ -41,6 +52,16 @@ export async function getItineraries(): Promise<Itinerary[]> {
 }
 
 export async function getDestinations() {
+  if (!isSupabaseConfigured) {
+    return [
+      { name: 'Uganda', image: 'https://images.unsplash.com/photo-1511210352317-062e10741634' },
+      { name: 'Kenya', image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801' },
+      { name: 'Tanzania', image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5' },
+      { name: 'Zanzibar', image: 'https://images.unsplash.com/photo-1586861635167-e5223aadc9fe' },
+      { name: 'Rwanda', image: 'https://images.unsplash.com/photo-1547407139-3c921a66005c' }
+    ]
+  }
+
   const supabase = createClient()
   const { data } = await supabase.from('destinations').select('*')
   return data || []

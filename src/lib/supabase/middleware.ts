@@ -6,6 +6,10 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return supabaseResponse
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -27,7 +31,10 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // refreshing the auth token
+  // IMPORTANT: Avoid writing any logic between createServerClient and
+  // supabase.auth.getUser(). A simple mistake can make it very hard to debug
+  // auth issues, where the user is logged in once but then logged out immediately.
+
   await supabase.auth.getUser()
 
   return supabaseResponse
