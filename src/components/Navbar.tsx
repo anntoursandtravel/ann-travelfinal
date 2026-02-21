@@ -76,9 +76,12 @@ export default function Navbar() {
           </NavigationMenu>
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <SearchBar />
           </div>
+          <Button asChild className="hidden md:flex bg-primary hover:bg-primary/90 font-bold px-6 shadow-md transition-all hover:shadow-lg">
+            <Link href="/contact">Inquire Now</Link>
+          </Button>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">

@@ -12,19 +12,19 @@ export default function AboutPage() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="prose prose-lg max-w-none text-muted-foreground">
             <p>
-              Welcome to Ann Tours and Travel. Our passion for Africa's breathtaking landscapes, diverse cultures, and magnificent wildlife is the driving force behind everything we do. We believe that travel is more than just visiting a new place; it's about creating lasting memories, forging connections, and experiencing the world in its purest form.
+              Welcome to Ann Tours and Travel. Our passion for Africa&apos;s breathtaking landscapes, diverse cultures, and magnificent wildlife is the driving force behind everything we do. We believe that travel is more than just visiting a new place; it&apos;s about creating lasting memories, forging connections, and experiencing the world in its purest form.
             </p>
             <p>
               Founded by a team of seasoned travel experts and local guides, our mission is to provide authentic, responsible, and personalized travel experiences. We specialize in curating bespoke safari adventures across Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Each itinerary is thoughtfully designed to showcase the unique beauty and character of the destination while ensuring the utmost comfort and safety for our travelers.
             </p>
             <p>
-              We are committed to sustainable tourism. We partner with local communities and conservation projects to ensure that our tours have a positive impact on both the environment and the people who call these beautiful places home. When you travel with us, you're not just a tourist; you're part of a larger story of conservation and community empowerment.
+              We are committed to sustainable tourism. We partner with local communities and conservation projects to ensure that our tours have a positive impact on both the environment and the people who call these beautiful places home. When you travel with us, you&apos;re not just a tourist; you&apos;re part of a larger story of conservation and community empowerment.
             </p>
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
              <Image 
-                src="https://placehold.co/800x600.png" 
-                alt="Safari guides" 
+                src="https://images.unsplash.com/photo-1523805009345-7448845a9e13?q=80&w=2070&auto=format&fit=crop"
+                alt="Safari landscape"
                 fill
                 className="object-cover"
               />
