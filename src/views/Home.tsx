@@ -42,7 +42,7 @@ export default function Home() {
   };
   return (
     <div className="flex flex-col min-h-dvh">
-      <section className="relative h-[100vh] md:h-[120vh] lg:h-[130vh] flex items-center justify-center text-center text-white py-8 md:py-16">
+      <section className="relative h-[120vh] md:h-[150vh] lg:h-[160vh] flex items-end justify-center text-center text-white pb-24 md:pb-32">
         <Image
           src="https://raw.githubusercontent.com/drewversedesign/ann-pics/main/Explore%20East%20Africa%20with%20Ann%20Tours%20.png"
           alt="Safari animals collage"
@@ -50,7 +50,7 @@ export default function Home() {
           className="object-cover object-center z-0"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
         <div className="relative z-20 container mx-auto px-4 flex flex-col items-center space-y-12 md:space-y-16">
           <form onSubmit={handleSearch} className="w-full max-w-3xl bg-white/95 backdrop-blur-sm rounded-full p-4 shadow-2xl flex items-center gap-4 animate-zoom-in">
             <Search className="h-6 w-6 text-muted-foreground ml-4" />
