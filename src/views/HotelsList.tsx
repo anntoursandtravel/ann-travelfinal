@@ -1,7 +1,8 @@
 "use client"
+
 import { useEffect, useState } from "react";
 import type { Place } from "@/lib/types";
-import { PlaceCard } from "@/components/place-card";
+import { TripAdvisorCard } from "@/components/TripAdvisorCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +11,7 @@ import { format } from "date-fns";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
 export default function HotelsList({ hotels }: { hotels: Place[] }) {
     const [guestsToggle, setGuestsToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -19,6 +21,7 @@ export default function HotelsList({ hotels }: { hotels: Place[] }) {
         checkin: format(new Date(), "yyyy-MM-dd"),
         checkout: '',
     })
+
     useEffect(() => {
         const handleScroll = () => {
             window.scrollY > 100 ? setScrolled(true) : setScrolled(false)
@@ -26,10 +29,12 @@ export default function HotelsList({ hotels }: { hotels: Place[] }) {
         document.addEventListener('scroll', handleScroll);
         return () => document.removeEventListener('scroll', handleScroll);
     }, []);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFilterParams((prevState) => ({...prevState, [name]: value}))
     }
+
     return ( 
        <div className="bg-background">
             <div className="container mx-auto text-center my-10">
@@ -37,6 +42,7 @@ export default function HotelsList({ hotels }: { hotels: Place[] }) {
                     Hotels and Places to Stay
                 </h1>
             </div>
+
             <div className={`${scrolled ? 'border-b shadow-sm' : ''} mb-10 z-30 sticky top-16 bg-background`}>
                 <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-2 px-4 py-5">
                     <div className="relative">
@@ -104,9 +110,10 @@ export default function HotelsList({ hotels }: { hotels: Place[] }) {
                     </Popover>
                 </div>
             </div>
+
             <div className="container mx-auto px-4 lg:grid lg:grid-cols-12 gap-8 pb-16">
                 <aside className="hidden lg:block lg:col-span-3">
-                    <div className="sticky top-40">
+                    <div className="sticky top-40 space-y-4">
                          <div className="w-full border shadow-sm rounded-lg p-2">
                             <div className="relative h-64">
                                 <Image src="https://placehold.co/400x400.png" alt="Map" fill className="object-cover rounded-md" />
@@ -119,12 +126,34 @@ export default function HotelsList({ hotels }: { hotels: Place[] }) {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="border rounded-lg p-4 bg-secondary/10">
+                            <h3 className="font-bold text-lg mb-4">Popular Filters</h3>
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" id="pool" className="rounded border-gray-300" />
+                                    <label htmlFor="pool" className="text-sm">Pool</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" id="breakfast" className="rounded border-gray-300" />
+                                    <label htmlFor="breakfast" className="text-sm">Breakfast included</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" id="wifi" className="rounded border-gray-300" />
+                                    <label htmlFor="wifi" className="text-sm">Free Wifi</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" id="spa" className="rounded border-gray-300" />
+                                    <label htmlFor="spa" className="text-sm">Spa</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </aside>
                 <main className="col-span-12 lg:col-span-9 mt-6 lg:mt-0">
-                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    <div className="space-y-4">
                         {hotels.map((hotel, i) => (
-                            <PlaceCard key={i} place={hotel} />
+                            <TripAdvisorCard key={i} place={hotel} />
                         ))}
                     </div>
                 </main>

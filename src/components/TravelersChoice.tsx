@@ -1,34 +1,72 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import { Award } from "lucide-react";
 import { Button } from "./ui/button";
+import { places } from "@/lib/data";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 export default function TravelersChoice() {
+  const topPlaces = places.filter(p => p.rating >= 4.8).slice(0, 10);
+
   return (
-    <section className="bg-[#004f32]">
-      <div className="container mx-auto grid md:grid-cols-12 h-auto md:h-[500px] overflow-hidden">
-        <div className="md:col-span-4 text-center py-8 flex flex-col items-center justify-center p-4 text-white">
-          <Award className="h-16 w-16 lg:h-20 lg:w-20 mb-5 text-yellow-400" />
-          <h2 className="font-headline font-bold text-3xl md:text-4xl">
-            Travelers&apos; Choice Best of the Best
-          </h2>
-          <Button asChild size="lg" className="mt-8 bg-white text-black hover:bg-gray-200 font-bold">
-            <Link href="#">See the winners</Link>
-          </Button>
-        </div>
-        <div className="md:col-span-8 h-80 md:h-full relative">
-          <Image
-            src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=2070&auto=format&fit=crop"
-            alt="Traveler's Choice background"
-            fill
-            className="object-cover hidden md:block"
-          />
-          <Image
-            src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=2070&auto=format&fit=crop"
-            alt="Traveler's Choice background"
-            fill
-            className="object-cover md:hidden"
-          />
-        </div>
+    <section className="bg-[#004f32] py-16 text-white overflow-visible relative z-0">
+      <div className="container mx-auto px-4">
+         <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+            <div className="flex items-center gap-4">
+                <div className="bg-yellow-400 p-3 rounded-full shrink-0">
+                    <Award className="h-8 w-8 text-[#004f32]" />
+                </div>
+                <div>
+                    <h2 className="font-headline font-bold text-3xl md:text-5xl tracking-tight">
+                        Travelers&apos; Choice
+                    </h2>
+                    <p className="text-white/80 mt-1 text-lg font-medium">Best of the Best</p>
+                </div>
+            </div>
+            <Button asChild size="lg" className="bg-white text-black hover:bg-gray-100 font-bold rounded-full px-8 shadow-lg transition-transform hover:scale-105">
+                <Link href="/attractions">See the winners</Link>
+            </Button>
+         </div>
+
+         <div className="relative px-4 md:px-0">
+            <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                className="w-full"
+            >
+                <CarouselContent className="-ml-4">
+                    {topPlaces.map((place) => (
+                        <CarouselItem key={place.id} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
+                            <Link href={`/place/${place.id}`} className="block group h-full">
+                                <div className="bg-white rounded-2xl overflow-hidden h-full text-black transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                                    <div className="relative h-48 w-full">
+                                        <Image
+                                            src={place.images[0]}
+                                            alt={place.name}
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                        <div className="absolute top-3 left-3 bg-yellow-400 text-[#004f32] text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+                                            <Award className="w-3 h-3" />
+                                            2025 Winner
+                                        </div>
+                                    </div>
+                                    <div className="p-5">
+                                        <h3 className="font-bold text-lg leading-tight mb-2 line-clamp-2 group-hover:underline decoration-2 decoration-[#004f32] underline-offset-4">{place.name}</h3>
+                                        <p className="text-sm text-gray-500 font-medium">{place.country}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden md:flex bg-white/10 text-white hover:bg-white hover:text-[#004f32] border-none -left-12 h-12 w-12" />
+                <CarouselNext className="hidden md:flex bg-white/10 text-white hover:bg-white hover:text-[#004f32] border-none -right-12 h-12 w-12" />
+            </Carousel>
+         </div>
       </div>
     </section>
   );
