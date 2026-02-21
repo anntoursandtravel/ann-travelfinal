@@ -1,55 +1,34 @@
 "use client"
-import { useState } from "react";
-import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from "@vis.gl/react-google-maps";
-import { places } from "@/lib/data";
 import type { Place } from "@/lib/types";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-export default function MapView() {
-  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState, ComponentType } from "react";
+import dynamic from "next/dynamic";
+
+interface MapProps {
+  places?: Place[];
+}
+
+const Map = dynamic<MapProps>(() => import("@/components/map"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-secondary animate-pulse flex items-center justify-center font-bold">Loading Interactive Map...</div>
+});
+
+export default function MapView({ places }: { places: Place[] }) {
+    const searchParams = useSearchParams();
+    const typeFilter = searchParams.get('type');
+    const [filteredPlaces, setFilteredPlaces] = useState<Place[]>(places);
+
+    useEffect(() => {
+        if (typeFilter) {
+            setFilteredPlaces(places.filter(p => p.type.toLowerCase() === typeFilter.toLowerCase()));
+        } else {
+            setFilteredPlaces(places);
+        }
+    }, [typeFilter, places]);
+
     return (
-      <div className="container mx-auto py-10 text-center">
-        <h1 className="text-2xl font-bold">Map View</h1>
-        <p className="mt-4 text-muted-foreground">Map requires a Google Maps API Key to be configured.</p>
-      </div>
+        <div className="h-[calc(100vh-64px)] w-full relative">
+            <Map places={filteredPlaces} />
+        </div>
     );
-  }
-  return (
-    <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-      <div className="w-full h-[calc(100vh-4rem)]">
-        <Map
-          defaultCenter={{ lat: -1.2921, lng: 36.8219 }} // Centered on Nairobi
-          defaultZoom={6}
-          mapId="ann-tours-and-travel-main-map"
-          gestureHandling={'greedy'}
-          disableDefaultUI={true}
-        >
-          {places.map((place) => (
-            <AdvancedMarker
-              key={place.id}
-              position={place.location}
-              onClick={() => setSelectedPlace(place)}
-            >
-              <Pin />
-            </AdvancedMarker>
-          ))}
-          {selectedPlace && (
-            <InfoWindow
-              position={selectedPlace.location}
-              onCloseClick={() => setSelectedPlace(null)}
-            >
-              <div className="p-2 space-y-2 max-w-xs">
-                <h3 className="font-bold font-headline">{selectedPlace.name}</h3>
-                <p className="text-sm">{selectedPlace.type} in {selectedPlace.country}</p>
-                <Button asChild size="sm">
-                  <Link href={`/place/${selectedPlace.id}`}>View Details</Link>
-                </Button>
-              </div>
-            </InfoWindow>
-          )}
-        </Map>
-      </div>
-    </APIProvider>
-  );
 }

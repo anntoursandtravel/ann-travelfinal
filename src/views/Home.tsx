@@ -1,19 +1,16 @@
 "use client";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-import { AttractionsListLoader } from "@/components/loaders";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Award, Leaf, Map, Sparkles } from "lucide-react";
+import { Award, Leaf, Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import HeroSearch from "@/components/HeroSearch";
-const WhereTo = dynamic(() => import('@/components/WhereTo'));
-const FeaturedItineraries = dynamic(() => import('@/components/FeaturedItineraries'), { 
-    loading: () => <div className="py-16 lg:py-24 bg-secondary"><AttractionsListLoader count={3} /></div> 
-});
-const TravelersChoice = dynamic(() => import('@/components/TravelersChoice'));
-const Trending = dynamic(() => import('@/components/Trending'));
+import WhereTo from '@/components/WhereTo';
+import FeaturedItineraries from '@/components/FeaturedItineraries';
+import TravelersChoice from '@/components/TravelersChoice';
+import Trending from '@/components/Trending';
+
 const whyChooseUs = [
   {
     icon: <Sparkles className="w-8 h-8 text-primary" />,
@@ -31,7 +28,8 @@ const whyChooseUs = [
     description: "Your adventure directly contributes to elite conservation projects and sustainable community development."
   }
 ];
-export default function Home() {
+
+export default function Home({ itineraries }: { itineraries: any[] }) {
   const router = useRouter();
   return (
     <div className="flex flex-col min-h-dvh">
@@ -84,7 +82,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <FeaturedItineraries />
+      <FeaturedItineraries itineraries={itineraries} />
       <TravelersChoice />
       <Trending />
     </div>

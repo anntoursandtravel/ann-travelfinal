@@ -14,7 +14,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, Loader2 } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
+import { useState } from "react"
+
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -29,8 +32,12 @@ const formSchema = z.object({
     message: "Message must be at least 10 characters.",
   }),
 })
+
 export default function ContactPage() {
     const { toast } = useToast()
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const supabase = createClient()
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -40,14 +47,27 @@ export default function ContactPage() {
             message: "",
         },
     })
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
-        toast({
-            title: "Message Sent!",
-            description: "Thank you for contacting us. We will get back to you shortly.",
-        })
-        form.reset()
+
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitting(true)
+        const { error } = await supabase.from('contacts').insert([values])
+
+        if (error) {
+            toast({
+                title: "Error sending message",
+                description: error.message,
+                variant: "destructive",
+            })
+        } else {
+            toast({
+                title: "Message Sent!",
+                description: "Thank you for contacting us. We will get back to you shortly.",
+            })
+            form.reset()
+        }
+        setIsSubmitting(false)
     }
+
   return (
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16 lg:py-24">
@@ -144,7 +164,16 @@ export default function ContactPage() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" size="lg">Send Message</Button>
+                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
+                </Button>
               </form>
             </Form>
           </div>

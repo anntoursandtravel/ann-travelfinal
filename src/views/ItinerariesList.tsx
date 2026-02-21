@@ -1,13 +1,12 @@
 "use client"
 import Image from "next/image"
-import { itineraries } from "@/lib/itineraries"
 import type { Itinerary } from "@/lib/itineraries"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Clock, MapPin, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-export default function ItinerariesList() {
+
+export default function ItinerariesList({ itineraries }: { itineraries: Itinerary[] }) {
     return (
         <div className="bg-background">
             <div className="container mx-auto px-4 py-16">
@@ -26,6 +25,7 @@ export default function ItinerariesList() {
         </div>
     )
 }
+
 function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
     return (
         <Card className="overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">

@@ -1,6 +1,5 @@
 "use client"
 import { useEffect, useState } from "react";
-import { places } from "@/lib/data";
 import type { Place } from "@/lib/types";
 import { PlaceCard } from "@/components/place-card";
 import { AttractionsListLoader } from "@/components/loaders";
@@ -12,9 +11,10 @@ import { format } from "date-fns";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-export default function HotelsList() {
-    const [hotels, setHotels] = useState<Place[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+
+export default function HotelsList({ hotels: initialHotels }: { hotels: Place[] }) {
+    const [hotels, setHotels] = useState<Place[]>(initialHotels);
+    const [isLoading, setIsLoading] = useState(false);
     const [guestsToggle, setGuestsToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [filterParams, setFilterParams] = useState({ 
@@ -23,6 +23,7 @@ export default function HotelsList() {
         checkin: format(new Date(), "yyyy-MM-dd"),
         checkout: '',
     })
+
     useEffect(() => {
         const handleScroll = () => {
             window.scrollY > 100 ? setScrolled(true) : setScrolled(false)
@@ -30,16 +31,12 @@ export default function HotelsList() {
         document.addEventListener('scroll', handleScroll);
         return () => document.removeEventListener('scroll', handleScroll);
     }, []);
-    useEffect(() => {
-        setIsLoading(true);
-        const allHotels = places.filter(place => place.type === 'Hotel');
-        setHotels(allHotels);
-        setIsLoading(false);
-    }, [])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFilterParams((prevState) => ({...prevState, [name]: value}))
     }
+
     return ( 
        <div className="bg-background">
             <div className="container mx-auto text-center my-10">
@@ -119,7 +116,7 @@ export default function HotelsList() {
                     <div className="sticky top-40">
                          <div className="w-full border shadow-sm rounded-lg p-2">
                             <div className="relative h-64">
-                                <Image src="https://placehold.co/400x400.png" alt="Map" fill className="object-cover rounded-md" />
+                                <Image src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=400&h=400" alt="Map" fill className="object-cover rounded-md" />
                                 <div className="absolute w-full h-full top-0 flex items-center justify-center bg-black/30 rounded-md">
                                     <Button asChild>
                                         <Link href="/map">

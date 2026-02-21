@@ -18,106 +18,104 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { COUNTRIES } from "@/lib/types"
 import Image from "next/image"
+import { createClient } from "@/lib/supabase/client"
+import { User } from "@supabase/supabase-js"
 
 const destinationImages: Record<string, string> = {
-  Uganda: 'https://images.unsplash.com/photo-1594555249959-8c072a2772e6?q=80&w=2070&auto=format&fit=crop',
-  Kenya: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/4e/5d/93/kenya.jpg?w=900&h=500&s=1',
-  Tanzania: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/01/a1/50/14/tanzania-safari.jpg?w=900&h=500&s=1',
-  Zanzibar: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/ff/64/zanzibar-island.jpg?w=900&h=500&s=1',
-  Rwanda: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/97/00/5f/rwanda.jpg?w=900&h=500&s=1',
-};
+  Uganda: "https://images.unsplash.com/photo-1511210352317-062e10741634?q=80&w=2070&auto=format&fit=crop",
+  Kenya: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2068&auto=format&fit=crop",
+  Tanzania: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1974&auto=format&fit=crop",
+  Zanzibar: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?q=80&w=1974&auto=format&fit=crop",
+  Rwanda: "https://images.unsplash.com/photo-1547407139-3c921a66005c?q=80&w=1974&auto=format&fit=crop",
+}
 
-const destinations = COUNTRIES.map(country => ({
-  name: country,
-  href: `/country/${country.toLowerCase()}`,
-  description: `Experience the raw beauty and luxury of ${country}.`,
-  image: destinationImages[country]
-}));
+const destinations = [
+  { name: "Uganda", href: "/country/Uganda" },
+  { name: "Kenya", href: "/country/Kenya" },
+  { name: "Tanzania", href: "/country/Tanzania" },
+  { name: "Zanzibar", href: "/country/Zanzibar" },
+  { name: "Rwanda", href: "/country/Rwanda" },
+]
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
-  const hasHero = pathname === '/' || pathname.startsWith('/itineraries/');
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+  const pathname = usePathname()
+  const supabase = createClient()
 
   useEffect(() => {
-    if (!hasHero) {
-      setIsScrolled(true);
-      return;
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
     }
+    getUser()
 
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [supabase])
+
+  useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    // Check initial scroll position
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasHero]);
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
-    <header className={cn(
-      "fixed top-0 z-50 w-full transition-all duration-300",
-      isScrolled
-        ? "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-2"
-        : "bg-transparent py-4"
-    )}>
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <Palmtree className={cn("h-8 w-8 transition-colors", isScrolled ? "text-primary" : "text-white")} />
-            <span className={cn(
-              "font-bold text-xl font-headline whitespace-nowrap tracking-tight transition-colors",
-              isScrolled ? "text-foreground" : "text-white"
-            )}>
-              Ann Tours & Travel
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        isScrolled
+          ? "bg-white/90 backdrop-blur-md py-3 shadow-lg border-b border-black/5"
+          : "bg-transparent py-6"
+      )}
+    >
+      <div className="container mx-auto px-6 flex items-center justify-between">
+        <div className="flex items-center gap-12">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-300">
+              <Palmtree className="h-6 w-6 text-white" />
+            </div>
+            <span
+              className={cn(
+                "text-2xl font-bold font-headline tracking-tight transition-colors duration-300",
+                !isScrolled ? "text-white" : "text-foreground"
+              )}
+            >
+              Ann Tours
             </span>
           </Link>
+
           <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(
-                  navigationMenuTriggerStyle(),
-                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
-                  !isScrolled
-                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white"
-                    : "hover:text-primary"
-                )}>
-                  <Link href="/">Home</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+            <NavigationMenuList className="gap-2">
               <NavigationMenuItem>
                 <NavigationMenuTrigger className={cn(
                   "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
-                  !isScrolled && "bg-transparent hover:bg-white/10 text-white data-[state=open]:bg-white/10 hover:text-white"
-                )}>Destinations</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[650px] grid-cols-2 gap-4 p-6">
-                     {destinations.map((destination) => (
-                        <ListItem
-                          key={destination.name}
-                          title={destination.name}
-                          href={destination.href}
-                          image={destination.image}
-                        >
-                          {destination.description}
-                        </ListItem>
-                      ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(
-                  navigationMenuTriggerStyle(),
-                  "font-bold text-[13px] tracking-widest uppercase transition-all duration-200",
                   !isScrolled
-                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white"
+                    ? "bg-transparent hover:bg-white/10 text-white hover:text-white data-[state=open]:bg-white/10"
                     : "hover:text-primary"
                 )}>
-                  <Link href="/itineraries">Itineraries</Link>
-                </NavigationMenuLink>
+                  Destinations
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[600px] gap-3 p-6 grid-cols-2 bg-white rounded-2xl shadow-2xl border border-black/5">
+                    {destinations.map((dest) => (
+                      <ListItem
+                        key={dest.name}
+                        title={dest.name}
+                        href={dest.href}
+                        image={destinationImages[dest.name]}
+                      >
+                        Explore the beauty and wildlife of {dest.name}.
+                      </ListItem>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
                <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(
@@ -159,6 +157,33 @@ export default function Navbar() {
           <div className="hidden lg:block">
             <SearchBar />
           </div>
+
+          {user ? (
+            <div className="hidden xl:flex items-center gap-4">
+              <span className={cn("font-bold text-sm", !isScrolled ? "text-white" : "text-foreground")}>
+                Hi, {user.user_metadata.full_name || user.email?.split('@')[0]}
+              </span>
+              <Button
+                onClick={() => supabase.auth.signOut()}
+                variant="outline"
+                size="sm"
+                className={cn(
+                  "rounded-full font-bold h-9",
+                  !isScrolled ? "text-white border-white hover:bg-white/10" : "border-primary text-primary hover:bg-primary/5"
+                )}
+              >
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <Button asChild variant="ghost" className={cn(
+              "hidden xl:flex font-bold rounded-full",
+              !isScrolled ? "text-white hover:bg-white/10" : ""
+            )}>
+              <Link href="/login">Sign In</Link>
+            </Button>
+          )}
+
           <Button asChild variant="ghost" className={cn(
             "hidden xl:flex items-center gap-2 font-bold transition-colors rounded-full",
             isScrolled ? "text-muted-foreground hover:text-primary hover:bg-primary/5" : "text-white hover:text-white hover:bg-white/10"
@@ -245,6 +270,14 @@ export default function Navbar() {
                       </div>
                       <span>Contact Us</span>
                     </Link>
+                    {!user && (
+                      <Link href="/login" className="group font-bold text-lg flex items-center gap-4 p-3 rounded-xl hover:bg-secondary transition-all" onClick={() => setIsOpen(false)}>
+                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                          <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
+                        </div>
+                        <span>Sign In</span>
+                      </Link>
+                    )}
                   </div>
                 </nav>
               </div>
@@ -260,6 +293,18 @@ export default function Navbar() {
                       WhatsApp Expert
                     </Link>
                   </Button>
+                  {user && (
+                    <Button
+                      onClick={() => {
+                        supabase.auth.signOut()
+                        setIsOpen(false)
+                      }}
+                      variant="ghost"
+                      className="w-full py-7 rounded-full text-base font-bold text-red-500 hover:text-red-600 hover:bg-red-50"
+                    >
+                      Sign Out
+                    </Button>
+                  )}
                 </div>
               </div>
             </SheetContent>
@@ -269,6 +314,7 @@ export default function Navbar() {
     </header>
   )
 }
+
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { image?: string }
@@ -306,3 +352,4 @@ const ListItem = React.forwardRef<
   );
 });
 ListItem.displayName = "ListItem"
+export default Navbar

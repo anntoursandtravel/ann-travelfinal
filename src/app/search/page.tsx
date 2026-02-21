@@ -1,11 +1,13 @@
-"use client"
 import { Suspense } from 'react'
 import { SearchResultLoader } from '@/components/loaders'
 import SearchResult from '@/views/SearchResult'
-export default function SearchPage() {
+import { getPlaces } from '@/lib/api'
+
+export default async function SearchPage() {
+    const allPlaces = await getPlaces();
     return (
         <Suspense fallback={<SearchResultLoader />}>
-            <SearchResult />
+            <SearchResult allPlaces={allPlaces} />
         </Suspense>
     )
 }

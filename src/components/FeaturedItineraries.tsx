@@ -1,13 +1,17 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import { itineraries } from "@/lib/itineraries";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, MapPin } from "lucide-react";
-export default function FeaturedItineraries() {
-  const featured = itineraries.slice(0, 4);
+import { Itinerary } from "@/lib/itineraries";
+
+export default function FeaturedItineraries({ itineraries }: { itineraries: Itinerary[] }) {
+  const featured = itineraries.length > 0 ? itineraries.slice(0, 4) : [];
+
+  if (featured.length === 0) return null;
+
   return (
     <section className="w-full py-16 lg:py-24 bg-secondary">
        <div className="container mx-auto px-4">

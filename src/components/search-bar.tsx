@@ -3,20 +3,22 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { places } from '@/lib/data'
-import type { Place } from '@/lib/types'
+import { usePlaces } from '@/hooks/usePlaces'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { Loader } from '@/components/loaders'
+
 export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState<Place[]>([])
+  const [results, setResults] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
+  const { places, loading: placesLoading } = usePlaces()
+
   useEffect(() => {
-    if (query.length > 1) {
+    if (query.length > 1 && !placesLoading) {
       setLoading(true)
       const timer = setTimeout(() => {
         const filteredResults = places.filter(place =>
@@ -31,13 +33,15 @@ export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
     } else {
       setResults([])
     }
-  }, [query])
+  }, [query, places, placesLoading])
+
   const handleSelect = (placeId: string) => {
     setQuery('')
     setIsOpen(false)
     if(onResultClick) onResultClick();
     router.push(`/place/${placeId}`)
   }
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
@@ -58,8 +62,8 @@ export function SearchBar({ onResultClick }: { onResultClick?: () => void }) {
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0 rounded-xl overflow-hidden shadow-2xl border-primary/5 mt-1" align="start">
         <Command>
           <CommandList>
-            {loading && <div className="p-4 flex items-center justify-center"><Loader className="h-5 w-5" /></div>}
-            {!loading && results.length === 0 && query.length > 1 && (
+            {(loading || (placesLoading && query.length > 1)) && <div className="p-4 flex items-center justify-center"><Loader className="h-5 w-5" /></div>}
+            {!loading && !placesLoading && results.length === 0 && query.length > 1 && (
               <CommandEmpty>No results found.</CommandEmpty>
             )}
             {results.length > 0 && (

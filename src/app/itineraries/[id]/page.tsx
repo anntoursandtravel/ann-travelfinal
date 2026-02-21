@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { itineraries } from "@/lib/itineraries";
+import { getItineraries } from "@/lib/api";
 import ItineraryDetails from "@/views/ItineraryDetails";
 import type { Metadata } from "next";
 
@@ -8,6 +8,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
+  const itineraries = await getItineraries();
   return itineraries.map((itinerary) => ({
     id: itinerary.id,
   }));
@@ -15,6 +16,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
+  const itineraries = await getItineraries();
   const itinerary = itineraries.find((it) => it.id === id);
 
   if (!itinerary) return { title: "Itinerary Not Found" };
@@ -32,6 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ItineraryPage({ params }: Props) {
   const { id } = await params;
+  const itineraries = await getItineraries();
   const itinerary = itineraries.find((it) => it.id === id);
 
   if (!itinerary) {

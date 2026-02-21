@@ -1,24 +1,25 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { places } from '@/lib/data'
 import type { Place } from '@/lib/types'
 import SearchResultCard from '@/components/SearchResultCard'
 import { SearchResultLoader } from '@/components/loaders'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Search } from 'lucide-react'
-export default function SearchResult() {
+
+export default function SearchResult({ allPlaces }: { allPlaces: Place[] }) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const query = searchParams.get('q') || ''
   const [term, setTerm] = useState(query)
   const [results, setResults] = useState<Place[]>([])
   const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     setLoading(true)
     if (query) {
-      const filteredResults = places.filter(place =>
+      const filteredResults = allPlaces.filter(place =>
         place.name.toLowerCase().includes(query.toLowerCase()) ||
         place.country.toLowerCase().includes(query.toLowerCase()) ||
         place.description.toLowerCase().includes(query.toLowerCase()) ||
@@ -30,16 +31,19 @@ export default function SearchResult() {
     }
     setTerm(query)
     setLoading(false)
-  }, [query])
+  }, [query, allPlaces])
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (term.trim()) {
       router.push(`/search?q=${term.trim()}`)
     }
   }
+
   if (loading) {
     return <SearchResultLoader />
   }
+
   return (
     <div className="container mx-auto px-4 py-8">
         <form className="mb-8 flex gap-2" onSubmit={handleSubmit}>

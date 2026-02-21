@@ -3,16 +3,18 @@ import type { Place } from "@/lib/types"
 import { PlaceCard } from "@/components/place-card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useMemo } from "react"
-import { itineraries, Itinerary } from "@/lib/itineraries"
+import type { Itinerary } from "@/lib/itineraries"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
 import Image from "next/image"
 import { Clock, MapPin } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+
 interface CountryDetailsProps {
   country: Place['country']
   places: Place[]
+  itineraries: Itinerary[]
 }
+
 function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
     return (
         <Card className="overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -58,17 +60,19 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
         </Card>
     )
 }
-export default function CountryDetails({ country, places }: CountryDetailsProps) {
+
+export default function CountryDetails({ country, places, itineraries: countryItineraries }: CountryDetailsProps) {
   const attractions = useMemo(() => places.filter(p => p.type === 'Attraction'), [places])
   const hotels = useMemo(() => places.filter(p => p.type === 'Hotel'), [places])
   const restaurants = useMemo(() => places.filter(p => p.type === 'Restaurant'), [places])
-  const countryItineraries = useMemo(() => itineraries.filter(i => i.countries.includes(country)), [country])
+
   const placeTypes = [
     { name: "Attractions", data: attractions, count: attractions.length, type: 'place' },
     { name: "Hotels", data: hotels, count: hotels.length, type: 'place' },
     { name: "Restaurants", data: restaurants, count: restaurants.length, type: 'place' },
     { name: "Itineraries", data: countryItineraries, count: countryItineraries.length, type: 'itinerary' },
   ].filter(pt => pt.count > 0);
+
   if (placeTypes.length === 0) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
@@ -77,6 +81,7 @@ export default function CountryDetails({ country, places }: CountryDetailsProps)
       </div>
     )
   }
+
   return (
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16">

@@ -1,14 +1,16 @@
-import { places } from "@/lib/data"
+import { getPlaces, getItineraries } from "@/lib/api"
 import { COUNTRIES, COUNTRY_ISO_MAP, Place } from "@/lib/types"
 import { notFound } from "next/navigation"
 import CountryDetails from "@/views/CountryDetails"
 import type { Metadata } from "next";
+
 type Props = {
   params: Promise<{ name: string }>
 }
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const awaitedParams = await params;
-  const countryName = COUNTRIES.find(c => c.toLowerCase() === awaitedParams.name);
+  const countryName = COUNTRIES.find(c => c.toLowerCase() === awaitedParams.name.toLowerCase());
   if (!countryName) {
     return {
       title: 'Country Not Found'
@@ -20,18 +22,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: [`${countryName} travel`, `things to do in ${countryName}`, `hotels in ${countryName}`, `restaurants in ${countryName}`, 'safari', 'tourism'],
   }
 }
+
 export async function generateStaticParams() {
   return COUNTRIES.map((country) => ({
     name: country.toLowerCase(),
   }))
 }
+
 export default async function CountryPage({ params }: { params: Promise<{ name: string }> }) {
   const awaitedParams = await params;
-  const countryName = COUNTRIES.find(c => c.toLowerCase() === awaitedParams.name);
+  const countryName = COUNTRIES.find(c => c.toLowerCase() === awaitedParams.name.toLowerCase());
   if (!countryName) {
     notFound()
   }
-  const countryPlaces = places.filter(p => p.country.toLowerCase() === awaitedParams.name)
+
+  const [allPlaces, allItineraries] = await Promise.all([
+    getPlaces(),
+    getItineraries()
+  ]);
+
+  const countryPlaces = allPlaces.filter(p => p.country.toLowerCase() === awaitedParams.name.toLowerCase())
+  const countryItineraries = allItineraries.filter(i => i.countries.some(c => c.toLowerCase() === awaitedParams.name.toLowerCase()))
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -43,13 +55,14 @@ export default async function CountryPage({ params }: { params: Promise<{ name: 
       addressCountry: COUNTRY_ISO_MAP[countryName as Place['country']]
     }
   };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <CountryDetails country={countryName} places={countryPlaces} />
+      <CountryDetails country={countryName} places={countryPlaces} itineraries={countryItineraries} />
     </>
   );
 }

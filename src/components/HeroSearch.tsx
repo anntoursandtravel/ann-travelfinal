@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Search, MapPin, Calendar, Compass, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { places } from '@/lib/data'
+import { usePlaces } from '@/hooks/usePlaces'
 import type { Place } from '@/lib/types'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/components/ui/command'
@@ -26,9 +26,10 @@ export default function HeroSearch() {
   const [experience, setExperience] = useState('')
 
   const router = useRouter()
+  const { places, loading: placesLoading } = usePlaces()
 
   useEffect(() => {
-    if (destinationQuery.length > 1) {
+    if (destinationQuery.length > 1 && !placesLoading) {
       setLoading(true)
       const timer = setTimeout(() => {
         const filtered = places.filter(place =>
@@ -42,7 +43,7 @@ export default function HeroSearch() {
     } else {
       setDestinationResults([])
     }
-  }, [destinationQuery])
+  }, [destinationQuery, places, placesLoading])
 
   const handleDestinationSelect = (placeId: string) => {
     setDestinationQuery('')
@@ -52,13 +53,12 @@ export default function HeroSearch() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    let url = '/search?'
     const params = new URLSearchParams()
     if (destinationQuery) params.append('q', destinationQuery)
     if (timing) params.append('timing', timing)
     if (experience) params.append('experience', experience)
 
-    router.push(url + params.toString())
+    router.push('/search?' + params.toString())
   }
 
   return (
@@ -92,12 +92,12 @@ export default function HeroSearch() {
           >
             <Command>
               <CommandList className="max-h-[300px]">
-                {loading && (
+                {(loading || (placesLoading && destinationQuery.length > 1)) && (
                   <div className="p-6 flex items-center justify-center">
                     <Loader2 className="h-6 w-6 text-primary animate-spin" />
                   </div>
                 )}
-                {!loading && destinationResults.length === 0 && destinationQuery.length > 1 && (
+                {!loading && !placesLoading && destinationResults.length === 0 && destinationQuery.length > 1 && (
                   <CommandEmpty className="p-6 text-center text-muted-foreground">No matches found.</CommandEmpty>
                 )}
                 {destinationResults.length > 0 && (

@@ -1,23 +1,29 @@
-import { places } from "@/lib/data"
+import { getPlaces } from "@/lib/api"
 import { COUNTRY_ISO_MAP } from "@/lib/types"
 import { notFound } from "next/navigation"
 import PlaceDetails from "@/views/PlaceDetails"
 import type { Metadata } from "next";
+
 type Props = {
   params: Promise<{ id: string }>
 }
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const awaitedParams = await params;
-  const place = places.find(p => p.id === awaitedParams.id)
+  const allPlaces = await getPlaces();
+  const place = allPlaces.find(p => p.id === awaitedParams.id)
+
   if (!place) {
     return {
       title: 'Place Not Found'
     }
   }
+
   const keywords = [place.name, place.type, place.country, 'Ann Tours and Travel', 'African safari'];
   if (place.type === 'Hotel') keywords.push('accommodation', 'booking');
   if (place.type === 'Restaurant') keywords.push('dining', 'food');
   if (place.type === 'Attraction') keywords.push('tourism', 'sightseeing');
+
   return {
     title: `${place.name} | ${place.country}`,
     description: `Explore ${place.name}, a premier ${place.type.toLowerCase()} in ${place.country}. Get details, see photos, and plan your visit with Ann Tours and Travel. ${place.description}`,
@@ -45,17 +51,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 }
+
 export async function generateStaticParams() {
-  return places.map((place) => ({
+  const allPlaces = await getPlaces();
+  return allPlaces.map((place) => ({
     id: place.id,
   }))
 }
+
 export default async function PlaceDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const awaitedParams = await params;
-  const place = places.find(p => p.id === awaitedParams.id)
+  const allPlaces = await getPlaces();
+  const place = allPlaces.find(p => p.id === awaitedParams.id)
+
   if (!place) {
     notFound()
   }
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': place.type === 'Hotel' ? 'Hotel' : place.type === 'Restaurant' ? 'Restaurant' : 'TouristAttraction',
@@ -80,6 +92,7 @@ export default async function PlaceDetailsPage({ params }: { params: Promise<{ i
       worstRating: '1'
     }
   };
+
   return (
     <>
       <script

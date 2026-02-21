@@ -6,13 +6,21 @@ import { Card } from "@/components/ui/card"
 import { Star, MapPin, Phone, Globe } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { Place } from "@/lib/types"
-const MapComponent = dynamic(() => import("@/components/map").then(mod => mod.MapComponent), {
+
+interface MapProps {
+  lat: number;
+  lng: number;
+}
+
+const MapComponent = dynamic<MapProps>(() => import("@/components/map"), {
     ssr: false,
     loading: () => <Skeleton className="w-full h-full" />
 })
+
 interface PlaceDetailsProps {
     place: Place
 }
+
 export default function PlaceDetails({ place }: PlaceDetailsProps) {
   const schemaTypeMap = {
     'Hotel': 'Hotel',
