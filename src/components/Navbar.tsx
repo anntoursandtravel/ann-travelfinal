@@ -27,9 +27,9 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
             <Palmtree className="h-8 w-8 text-primary" />
-            <span className="font-bold text-lg font-headline">Ann Tours and Travel</span>
+            <span className="font-bold text-xl font-headline whitespace-nowrap tracking-tight">Ann Tours & Travel</span>
           </Link>
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
