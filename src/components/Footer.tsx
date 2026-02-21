@@ -16,7 +16,7 @@ export default function Footer() {
             <div className="col-span-1 md:col-span-2 space-y-6">
                 <Link href="/" className="flex items-center gap-2 group">
                     <Palmtree className="h-10 w-10 text-primary transition-transform group-hover:scale-110" />
-                    <span className="font-bold text-2xl font-headline italic">Ann Tours and Travel</span>
+                    <span className="font-bold text-2xl font-headline italic">Nile Crown Safaris</span>
                 </Link>
                 <p className="text-muted-foreground max-w-sm leading-relaxed">
                     Crafting bespoke safari adventures and cultural journeys across the magnificent landscapes of East Africa. Join us for a journey of a lifetime.
@@ -45,7 +45,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} Ann Tours and Travel. All rights reserved.
+                &copy; {new Date().getFullYear()} Nile Crown Safaris. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
                 {legalLinks.map((link) => (

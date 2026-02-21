@@ -75,7 +75,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-headline text-3xl md:text-4xl font-bold italic text-primary mb-2">The Distinction</h2>
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">Why Ann Tours & Travel?</h2>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Why Nile Crown Safaris?</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {whyChooseUs.map((item) => (

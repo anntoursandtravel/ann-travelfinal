@@ -4,7 +4,7 @@ export default function AboutPage() {
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16 lg:py-24">
         <div className="text-center mb-12">
-          <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">About Ann Tours and Travel</h1>
+          <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">About Nile Crown Safaris</h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
             Your trusted partner in crafting unforgettable African journeys.
           </p>
@@ -12,7 +12,7 @@ export default function AboutPage() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="prose prose-lg max-w-none text-muted-foreground">
             <p>
-              Welcome to Ann Tours and Travel. Our passion for Africa&apos;s breathtaking landscapes, diverse cultures, and magnificent wildlife is the driving force behind everything we do. We believe that travel is more than just visiting a new place; it&apos;s about creating lasting memories, forging connections, and experiencing the world in its purest form.
+              Welcome to Nile Crown Safaris. Our passion for Africa&apos;s breathtaking landscapes, diverse cultures, and magnificent wildlife is the driving force behind everything we do. We believe that travel is more than just visiting a new place; it&apos;s about creating lasting memories, forging connections, and experiencing the world in its purest form.
             </p>
             <p>
               Founded by a team of seasoned travel experts and local guides, our mission is to provide authentic, responsible, and personalized travel experiences. We specialize in curating bespoke safari adventures across Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Each itinerary is thoughtfully designed to showcase the unique beauty and character of the destination while ensuring the utmost comfort and safety for our travelers.

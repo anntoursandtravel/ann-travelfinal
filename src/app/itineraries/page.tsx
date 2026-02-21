@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 import { itineraries } from "@/lib/itineraries";
 export const metadata: Metadata = {
   title: 'Curated African Safari Itineraries',
-  description: 'Explore expertly crafted safari itineraries for Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Find your perfect adventure with Ann Tours and Travel.',
+  description: 'Explore expertly crafted safari itineraries for Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Find your perfect adventure with Nile Crown Safaris.',
   keywords: ['safari itineraries', 'Africa travel packages', 'Uganda safari', 'Kenya safari', 'Tanzania safari', 'Rwanda gorilla trekking', 'Zanzibar holidays'],
 };
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Curated African Safari Itineraries",
-  "description": "Explore expertly crafted safari itineraries for Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Find your perfect adventure with Ann Tours and Travel.",
+  "description": "Explore expertly crafted safari itineraries for Uganda, Kenya, Tanzania, Zanzibar, and Rwanda. Find your perfect adventure with Nile Crown Safaris.",
   "url": "https://anntoursandtravel.com/itineraries",
   "mainEntity": {
     "@type": "ItemList",
@@ -25,7 +25,7 @@ const structuredData = {
         "url": `https://anntoursandtravel.com/itineraries#${itinerary.id}`,
         "brand": {
           "@type": "Brand",
-          "name": "Ann Tours and Travel"
+          "name": "Nile Crown Safaris"
         },
         "offers": {
           "@type": "Offer",

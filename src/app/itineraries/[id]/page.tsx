@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!itinerary) return { title: "Itinerary Not Found" };
 
   return {
-    title: `${itinerary.title} | Ann Tours and Travel`,
+    title: `${itinerary.title} | Nile Crown Safaris`,
     description: itinerary.description,
     openGraph: {
       title: itinerary.title,
