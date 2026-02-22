@@ -10,6 +10,8 @@ import WhereTo from "@/components/WhereTo";
 import FeaturedItineraries from "@/components/FeaturedItineraries";
 import TravelersChoice from "@/components/TravelersChoice";
 import Trending from "@/components/Trending";
+import Testimonials from "@/components/Testimonials";
+import Newsletter from "@/components/Newsletter";
 
 const whyChooseUs = [
   {
@@ -60,8 +62,6 @@ export default function Home() {
 
       <WaysToTour />
 
-      <Trending />
-
       <section className="py-12 bg-[#f2f2f2]">
         <div className="container px-4">
           <div className="text-center mb-8">
@@ -81,6 +81,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Testimonials />
+
+      <Trending />
+
+      <Newsletter />
 
       <section className="py-12 bg-white">
          <div className="container px-4">
