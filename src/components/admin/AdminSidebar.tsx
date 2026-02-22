@@ -1,8 +1,8 @@
 "use client"
 
-import { Home, MapPin, MessageSquare, LayoutDashboard } from "lucide-react"
+import { Home, MapPin, MessageSquare, LayoutDashboard, Briefcase, Mail, Users } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 
 import {
   Sidebar,
@@ -18,29 +18,52 @@ import {
 // Menu items.
 const items = [
   {
-    title: "Dashboard",
-    url: "/admin",
+    title: "Overview",
+    url: "/admin?tab=overview",
+    tab: "overview",
     icon: LayoutDashboard,
   },
   {
     title: "Places",
-    url: "/admin/places",
+    url: "/admin?tab=places",
+    tab: "places",
     icon: MapPin,
   },
   {
+    title: "Itineraries",
+    url: "/admin?tab=itineraries",
+    tab: "itineraries",
+    icon: Briefcase,
+  },
+  {
     title: "Reviews",
-    url: "/admin/reviews",
+    url: "/admin?tab=reviews",
+    tab: "reviews",
     icon: MessageSquare,
+  },
+  {
+    title: "Inquiries",
+    url: "/admin?tab=inquiries",
+    tab: "inquiries",
+    icon: Mail,
+  },
+  {
+    title: "Users",
+    url: "/admin?tab=users",
+    tab: "users",
+    icon: Users,
   },
   {
     title: "Back to Home",
     url: "/",
+    tab: null, // special case
     icon: Home,
   },
 ]
 
 export function AdminSidebar() {
-  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const activeTab = searchParams.get('tab') || 'overview'
 
   return (
     <Sidebar>
@@ -51,7 +74,7 @@ export function AdminSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={pathname === item.url}>
+                  <SidebarMenuButton asChild isActive={item.tab ? activeTab === item.tab : false}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
