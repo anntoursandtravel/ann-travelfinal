@@ -1,7 +1,8 @@
 import AttractionsList from "@/views/AttractionsList";
-import { places } from "@/lib/data";
+import { getPlaces } from "@/lib/api";
 
-export default function AttractionsPage() {
+export default async function AttractionsPage() {
+    const places = await getPlaces();
     const attractions = places.filter(place => place.type === 'Attraction');
     return <AttractionsList attractions={attractions} />;
 }

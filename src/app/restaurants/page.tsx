@@ -1,7 +1,8 @@
 import RestaurantsList from "@/views/RestaurantsList";
-import { places } from "@/lib/data";
+import { getPlaces } from "@/lib/api";
 
-export default function RestaurantsPage() {
+export default async function RestaurantsPage() {
+    const places = await getPlaces();
     const restaurants = places.filter(place => place.type === 'Restaurant');
     return <RestaurantsList restaurants={restaurants} />;
 }

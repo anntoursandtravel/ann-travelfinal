@@ -1,13 +1,12 @@
 "use client"
 import Image from "next/image"
-import { itineraries } from "@/lib/itineraries"
 import type { Itinerary } from "@/lib/itineraries"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Clock, MapPin, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-export default function ItinerariesList() {
+
+export default function ItinerariesList({ itineraries }: { itineraries: Itinerary[] }) {
     return (
         <div className="bg-background">
             <div className="container mx-auto px-4 py-16">
@@ -31,13 +30,14 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
         <Card className="overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
             <div className="grid md:grid-cols-12">
                 <div className="md:col-span-4">
-                    <Image
-                        src={itinerary.image}
-                        alt={itinerary.title}
-                        width={600}
-                        height={800}
-                        className="w-full h-full object-cover"
-                    />
+                    <div className="relative h-64 md:h-full w-full">
+                        <Image
+                            src={itinerary.image}
+                            alt={itinerary.title}
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
                 </div>
                 <div className="md:col-span-8 flex flex-col">
                     <CardHeader>
@@ -52,7 +52,7 @@ function ItineraryCard({ itinerary }: { itinerary: Itinerary }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                        <p className="text-muted-foreground mb-6">{itinerary.description}</p>
+                        <p className="text-muted-foreground mb-6 line-clamp-3">{itinerary.description}</p>
                         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                             <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5">
                                 <Link href={`/itineraries/${itinerary.id}`}>
