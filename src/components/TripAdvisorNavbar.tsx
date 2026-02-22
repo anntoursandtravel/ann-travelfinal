@@ -70,8 +70,10 @@ export default function TripAdvisorNavbar() {
            <Link href="/attractions" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded-full transition-colors font-medium">
             <span>Things to Do</span>
           </Link>
-          <Button className="rounded-full bg-black hover:bg-gray-800 text-white font-bold px-6">
-            Sign In
+          <Button asChild className="rounded-full bg-black hover:bg-gray-800 text-white font-bold px-6">
+            <Link href="/admin">
+              Sign In
+            </Link>
           </Button>
         </nav>
 
@@ -81,7 +83,9 @@ export default function TripAdvisorNavbar() {
             <Link href="/trips">
                <Heart className="h-6 w-6" />
             </Link>
-            <User className="h-6 w-6" />
+            <Link href="/admin">
+              <User className="h-6 w-6" />
+            </Link>
          </div>
       </div>
     </header>

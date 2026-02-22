@@ -29,6 +29,7 @@ export default function Footer() {
                     <li><Link href="/map" className="hover:text-primary transition-colors">Interactive Map</Link></li>
                     <li><Link href="/about" className="hover:text-primary transition-colors">About Our Story</Link></li>
                     <li><Link href="/contact" className="hover:text-primary transition-colors">Plan Your Trip</Link></li>
+                    <li><Link href="/admin" className="hover:text-primary transition-colors">Admin Dashboard</Link></li>
                 </ul>
             </div>
             <div>
