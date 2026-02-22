@@ -9,10 +9,19 @@ import { ItinerariesManager } from "@/components/admin/management/ItinerariesMan
 import { ReviewsManager } from "@/components/admin/management/ReviewsManager"
 import { UsersManager } from "@/components/admin/management/UsersManager"
 import { InquiriesManager } from "@/components/admin/management/InquiriesManager"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import Link from "next/link"
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminDashboard() {
+interface AdminDashboardProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function AdminDashboard({ searchParams }: AdminDashboardProps) {
+  const params = await searchParams
+  const activeTab = (typeof params.tab === 'string' ? params.tab : "overview")
+
   const [
     stats,
     analyticsData,
@@ -69,14 +78,26 @@ export default async function AdminDashboard() {
         />
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList className="bg-white border">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="places">Places</TabsTrigger>
-          <TabsTrigger value="itineraries">Itineraries</TabsTrigger>
-          <TabsTrigger value="reviews">Reviews</TabsTrigger>
-          <TabsTrigger value="inquiries">Inquiries</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
+      <Tabs key={activeTab} defaultValue={activeTab} className="space-y-4">
+        <TabsList className="bg-white border w-full justify-start overflow-x-auto">
+          <TabsTrigger value="overview" asChild>
+            <Link href="/admin?tab=overview">Overview</Link>
+          </TabsTrigger>
+          <TabsTrigger value="places" asChild>
+            <Link href="/admin?tab=places">Places</Link>
+          </TabsTrigger>
+          <TabsTrigger value="itineraries" asChild>
+            <Link href="/admin?tab=itineraries">Itineraries</Link>
+          </TabsTrigger>
+          <TabsTrigger value="reviews" asChild>
+            <Link href="/admin?tab=reviews">Reviews</Link>
+          </TabsTrigger>
+          <TabsTrigger value="inquiries" asChild>
+            <Link href="/admin?tab=inquiries">Inquiries</Link>
+          </TabsTrigger>
+          <TabsTrigger value="users" asChild>
+            <Link href="/admin?tab=users">Users</Link>
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -104,6 +125,14 @@ export default async function AdminDashboard() {
         </TabsContent>
 
         <TabsContent value="inquiries">
+             {inquiries.length === 0 && stats.inquiriesCount === 0 && (
+                <Alert className="mb-4">
+                  <AlertTitle>No Inquiries Found</AlertTitle>
+                  <AlertDescription>
+                    If you expect inquiries but see none, ensure the &apos;inquiries&apos; table exists in your Supabase database.
+                  </AlertDescription>
+                </Alert>
+             )}
             <InquiriesManager initialInquiries={inquiries} />
         </TabsContent>
 
