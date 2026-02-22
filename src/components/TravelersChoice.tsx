@@ -3,11 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Award } from "lucide-react";
 import { Button } from "./ui/button";
-import { places } from "@/lib/data";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Place } from "@/lib/types";
 
-export default function TravelersChoice() {
-  const topPlaces = places.filter(p => p.rating >= 4.8).slice(0, 10);
+interface TravelersChoiceProps {
+  places: Place[];
+}
+
+export default function TravelersChoice({ places }: TravelersChoiceProps) {
+  if (!places || places.length === 0) {
+    return null;
+  }
 
   return (
     <section className="bg-[#004f32] py-16 text-white overflow-visible relative z-0">
@@ -38,7 +44,7 @@ export default function TravelersChoice() {
                 className="w-full"
             >
                 <CarouselContent className="-ml-4">
-                    {topPlaces.map((place) => (
+                    {places.map((place) => (
                         <CarouselItem key={place.id} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
                             <Link href={`/place/${place.id}`} className="block group h-full">
                                 <div className="bg-white rounded-2xl overflow-hidden h-full text-black transition-all duration-300 hover:shadow-xl hover:-translate-y-1">

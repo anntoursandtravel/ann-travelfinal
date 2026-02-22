@@ -1,12 +1,15 @@
 "use client";
 
 import HomeHero from "@/components/HomeHero";
-import { TripAdvisorCard } from "@/components/TripAdvisorCard";
 import WaysToTour from "@/components/WaysToTour";
 import { Place } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { Award, Leaf, Sparkles } from "lucide-react";
+import WhereTo from "@/components/WhereTo";
+import FeaturedItineraries from "@/components/FeaturedItineraries";
+import TravelersChoice from "@/components/TravelersChoice";
+import Trending from "@/components/Trending";
 
 const whyChooseUs = [
   {
@@ -32,11 +35,11 @@ export default function Home() {
   useEffect(() => {
     async function fetchPlaces() {
       if (!supabase) return;
-      // Fetch some random places for the homepage
       const { data } = await supabase
         .from('places')
         .select('*')
-        .limit(6);
+        .order('rating', { ascending: false })
+        .limit(10);
 
       if (data) {
         setPlaces(data as unknown as Place[]);
@@ -49,18 +52,15 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white font-sans text-black">
       <HomeHero />
 
-      <section className="py-12 bg-white">
-        <div className="container px-4">
-          <h2 className="text-2xl font-bold mb-6 text-black">2025 Travelers' Choice Best of the Best</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {places.map((place) => (
-              <TripAdvisorCard key={place.id} place={place} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <WhereTo />
+
+      <FeaturedItineraries />
+
+      <TravelersChoice places={places} />
 
       <WaysToTour />
+
+      <Trending />
 
       <section className="py-12 bg-[#f2f2f2]">
         <div className="container px-4">
